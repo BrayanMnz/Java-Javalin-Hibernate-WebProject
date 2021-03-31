@@ -1,21 +1,33 @@
 package Parcial2_Web.Classes;
 
+import javax.persistence.*;
+import java.util.*;
+
+@Entity
 public class Usuario {
     
-
+    @Id
     public int id_usuario;
-    public String nombre_usuario;
+
+    @Column
+    public String username;
+    @Column
     public String rol_usuario; 
+    @Column
+    public String passwd_usuario;
 
-
+    @OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL , orphanRemoval = true)
+    private List<Formulario> formularios_usuario = new ArrayList<Formulario>();
+    
+    
     public Usuario() {
     }
 
 
-    public Usuario(int id_usuario, String nombre_usuario, String rol_usuario) {
+    public Usuario(int id_usuario, String username, String passwd_usuario) {
         this.id_usuario = id_usuario;
-        this.nombre_usuario = nombre_usuario;
-        this.rol_usuario = rol_usuario;
+        this.username = username;
+        this.passwd_usuario = passwd_usuario;
     }
 
 
@@ -27,12 +39,12 @@ public class Usuario {
         this.id_usuario = id_usuario;
     }
 
-    public String getNombre_usuario() {
-        return this.nombre_usuario;
+    public String getusername() {
+        return this.username;
     }
 
-    public void setNombre_usuario(String nombre_usuario) {
-        this.nombre_usuario = nombre_usuario;
+    public void setusername(String username) {
+        this.username = username;
     }
 
     public String getRol_usuario() {
@@ -42,5 +54,14 @@ public class Usuario {
     public void setRol_usuario(String rol_usuario) {
         this.rol_usuario = rol_usuario;
     }
+
+    public String getPasswd_usuario() {
+        return this.passwd_usuario;
+    }
+
+    public void setPasswd_usuario(String passwd_usuario) {
+        this.passwd_usuario = passwd_usuario;
+    }
+
 
 }
