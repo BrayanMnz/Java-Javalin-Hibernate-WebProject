@@ -45,6 +45,8 @@ public class DataBaseServices {
         try {
             getConn().close();
             System.out.println("Conexión exitosa!");
+
+            System.out.println("\n\n");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -57,7 +59,7 @@ public class DataBaseServices {
         String status = Server.createWebServer("-trace", "-webPort", "0").start().getStatus();
         //
         System.out.println("\n\nStatus Web: "+status);
-        System.out.println("\n\n");
+        
     }
 
     public void stopDB() {

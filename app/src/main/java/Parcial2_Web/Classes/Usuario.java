@@ -16,8 +16,8 @@ public class Usuario {
     @Column
     public String passwd_usuario;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL , orphanRemoval = true)
-    private List<Formulario> formularios_usuario = new ArrayList<Formulario>();
+    // @OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL , orphanRemoval = true)
+    // private List<Formulario> formularios_usuario = new ArrayList<Formulario>();
     
     
     public Usuario() {

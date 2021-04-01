@@ -3,7 +3,8 @@ package Parcial2_Web;
 
 import java.sql.SQLException;
 
-import Parcial2_Web.util.DataBaseServices;
+import Parcial2_Web.util.*;
+import Parcial2_Web.Classes.*;
 import io.javalin.Javalin;
 import io.javalin.core.util.RouteOverviewPlugin;
 
@@ -22,6 +23,12 @@ public class App {
         //Iniciando la base de datos.
         if(modoConexion.isEmpty()) {
             DataBaseServices.getInstancia().startDB(); }
+
+            DataBaseServices.getInstancia().testConn();
+
+            Usuario tmp = new Usuario(0, "admin", "admin");
+            UsuarioServicios.getInstance().crear(tmp);
+
 
 
            //Creando la instancia del servidor.
