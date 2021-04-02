@@ -6,7 +6,8 @@ import java.util.*;
 @Entity
 public class Usuario {
     
-    @Id
+    @Id    
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Se genera el ID automatico
     public int id_usuario;
 
     @Column

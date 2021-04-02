@@ -2,11 +2,11 @@ package Parcial2_Web.util;
 
 import Parcial2_Web.Classes.*;
 
-public class FormularioServicios extends GestionDb<Usuario>  {
+public class FormularioServicios extends GestionDb<Formulario>  {
     private static FormularioServicios instance;
 
     public FormularioServicios() {
-        super(Usuario.class);
+        super(Formulario.class);
     }
 
     public static FormularioServicios getInstance() {

@@ -27,8 +27,7 @@ public class mainController extends BaseControlador {
         JavalinRenderer.register(JavalinThymeleaf.INSTANCE, ".html");
     }
 
-    CarroCompra auxCarrito;
-    Almacen auxAlmacen = Almacen.getInstance();
+  
 
     @Override
     public void aplicarRutas() {
@@ -41,12 +40,37 @@ public class mainController extends BaseControlador {
 
             path("/Principal", () ->{
 
-                get("/ListadoProductos", ctx -> {
+                get("/RegistrarPersona", ctx -> {
+                    Map<String, Object> modelo = new HashMap<>();
+                    ctx.render("/publico/Formulario.html",modelo);
 
 
                 });
 
+                post("/RegistrarPersona", ctx -> {
+                    
+                    String nombre = ctx.formParam("nombre");
+                    String apellido = ctx.formParam("apellidos");
+                    String sector = ctx.formParam("sector");
+                    String nivelEscolar = ctx.formParam("nivelEscolar");
+                    String longitud = ctx.formParam("longitud");
+                    String latitud = ctx.formParam("latitud");
 
+                    Formulario auxFormulario = new Formulario(nombre+apellido,sector,nivelEscolar,latitud,longitud);
+                    serviciosFormularios.crear(auxFormulario);
+
+
+                  
+                });
+
+
+                get("/Login", ctx-> {
+                    Map<String, Object> modelo = new HashMap<>();
+                    ctx.render("/publico/Login.html",modelo);
+                });
+
+               
+                
 
 
                 });

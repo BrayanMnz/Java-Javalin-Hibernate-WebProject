@@ -10,6 +10,9 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+
+<script src="App.js"></script>
+
 <style> 
 .register{
     background: -webkit-linear-gradient(left, #3931af, #00c6ff);
@@ -124,6 +127,7 @@
        }
        #navigation{
         list-style-type: none;
+        background: -webkit-linear-gradient(right, #3931af, #00c6ff);
        }
 
 
@@ -131,11 +135,22 @@
 
 
 </head>
-<body style="  background: -webkit-linear-gradient(left, #3931af, #00c6ff);">
+<body onload="init()" style="  background: -webkit-linear-gradient(left, #3931af, #00c6ff);">
 
 
 
 
+
+
+
+
+
+
+
+
+    <script>
+        location();
+    </script>
 
     <nav id="navigation" class="navbar navbar-expand-lg navbar-dark bg-dark">
         <!-- Container wrapper -->
@@ -191,7 +206,7 @@
       </nav>
 <!-- ==================================================== -->
 
-
+<form id="RegistrarPersona" action="/Principal/RegistrarPersona" method="post">
     <div class="container register">
         <div class="row">
             <div class="col-md-3 register-left">
@@ -199,48 +214,50 @@
                 <img src="https://i1.wp.com/red-lei.org/wp-content/uploads/2020/01/logo_pucmm_lineas-Blanco1.png?w=1060&ssl=1" style="width: 180px;"   alt=""/>
                 
                 <h4>P U C M M</h4>
-                <p>Oficina de planeamiento urbano</p>
+                <p >Oficina de planeamiento urbano</p>
                 
             </div>
             <div class="col-md-9 register-right">
-               
+
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <h3 class="register-heading">Registro de Personas</h3>
                         <div class="row register-form">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Nombres  *" value="" />
+                            <input name="nombre" type="text" class="form-control" placeholder="Nombres  *"  form="RegistrarPersona" />
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Apellidos  *" value="" />
+                                    <input name="apellidos" type="text" class="form-control" placeholder="Apellidos  *" form="RegistrarPersona" />
                                 </div>
                               
                                 <div class="form-group">
                                     
                                 </div>
-
+                                <div class="form-group">
+                                    <input name="sector" type="text" class="form-control" placeholder="Sector  *" form="RegistrarPersona" />
+                                </div>
                                 <div class="form-group">
                                     <div class="maxl">
                                         <label class="radio inline"> 
                                             <input type="radio" name="gender" value="male" checked>
-                                            <span> Male </span> 
+                                            <span> Masculino </span> 
                                         </label>
                                         <label class="radio inline"> 
                                             <input type="radio" name="gender" value="female">
-                                            <span>Female </span> 
+                                            <span>Femenino</span> 
                                         </label>
                                     </div>
                                 </div>
+
+                               
                             </div>
                             <div class="col-md-6">
 
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Sector  *" value="" />
-                                </div>
+                               
 
                                 <div class="form-group" >
-                                    <select class="form-control">
+                                    <select name="nivelEscolar" class="form-control" form="RegistrarPersona">
                                         <option class="hidden"  selected disabled>Seleccione Nivel Escolar</option>
                                         <option>Básico </option>
                                         <option>Medio</option>
@@ -250,8 +267,17 @@
                                     </select>
                                 </div>
 
+                                <div class="form-group">
+                                    <input name="latitud" id="latitud" type="text" class="form-control" placeholder="Latitud " form="RegistrarPersona" readonly />
+                                </div>
+
+                                <div class="form-group">
+                                    <input name="longitud" id="longitud"  type="text" class="form-control" placeholder="Longitud  " form="RegistrarPersona" readonly/>
+                                </div>
+
                             
-                                <input disabled type="submit" class="btnRegister"  value="Register"/>
+                                <!-- <input onclick="registrarFormulario()" class="btnRegister"  value="Registrar" form="RegistrarPersona"/> -->
+                                <button class="btnRegister" onclick="registrarFormulario()">Registrar</button>
                             </div>
                         </div>
                     </div>
@@ -262,6 +288,115 @@
                         </div>
                     </div>
                 </div>
-     
+            </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- Script para obtener ubicación.   -->
+        <script src="/js/jquery-3.2.1.min.js"></script>
+
+            <script> 
+
+        var id, cantidad = 0;
+    
+        var opcionesGPS = {
+            enableHighAccuracy: true,
+            timeout: 1000,
+            maximumAge: 0
+        }
+
+        
+        $(document).ready(setearLocalizacion());
+        
+        
+        function setearLocalizacion() {
+
+
+            //Obteniendo la referencia directa.
+            navigator.geolocation.getCurrentPosition(
+            function(geodata){
+                var coordenadas = geodata.coords;
+                document.getElementById("#latitud").value = coordenadas.latitude;
+
+                document.getElementById("#longitud").value = coordenadas.longitude;
+            }, 
+            
+            function(){
+                document.querySelector("#latitud").value = "Error al obtener la ubicación";
+                document.querySelector("#longitud").value = "Error al obtener la ubicación";
+            }, 
+            opcionesGPS);
+
+            //Obteniendo el cambio de referencia.
+            id = navigator.geolocation.watchPosition(
+            
+            function(geodata){
+                var coordenadas = geodata.coords;
+                document.querySelector("#latitud").value = coordenadas.latitude;
+                document.querySelector("#longitud").value = coordenadas.longitude;
+                cantidad++;
+                if(cantidad>=5){
+                    navigator.geolocation.clearWatch(id);
+                    console.log("Finalizando la trama")
+                }
+            },
+            
+            function(error){
+                //recibe un objeto con dos propiedades: code y message.
+                document.querySelector("#latitud").value = "Error al obtener la ubicación. Codigo: "+error.code+", mensaje: "+error.message;
+                document.querySelector("#longitud").value = "Error al obtener la ubicación. Codigo: "+error.code+", mensaje: "+error.message;
+            });
+        }
+
+            </script>
+
+
+
+
+ <!-- Script para creación y manipulación Indexed DB usando Dexie.js         -->
+       <!-- Include Dexie -->
+       <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
+       <script>
+               var db = new Dexie("Parcial2");
+                    
+                   db.version(1).stores({
+                    Formulario: '++&id_Formulario, Nombre, Sector, NivelEscolar, Latitud, Longitud',
+                    Usuario: '++&id_Usuario, username, passwd_Usuario, role_Usuario'
+                   });
+   
+   
+                   function registrarFormulario(){ 
+                       
+                       db.Formulario.put({
+                              Nombre: document.getElementById("#nombre").value +" "+document.getElementById("#apellidos").value,
+                              Sector: document.getElementById("#sector").value,
+                              NivelEscolar: document.getElementById("#nivelEscolar").value,
+                              Latitud: document.getElementById("#latitud").value,
+                              Longitud: document.getElementById("#longitud").value
+   
+   
+                           }); 
+                        } 
+                           
+                   
+       </script>
+
+
+
 </body>
 </html>

@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import Parcial2_Web.util.*;
 import Parcial2_Web.Classes.*;
+import Parcial2_Web.Controllers.*;
 import io.javalin.Javalin;
 import io.javalin.core.util.RouteOverviewPlugin;
 
@@ -26,8 +27,8 @@ public class App {
 
             DataBaseServices.getInstancia().testConn();
 
-            Usuario tmp = new Usuario(0, "admin", "admin");
-            UsuarioServicios.getInstance().crear(tmp);
+            // Usuario tmp = new Usuario(0, "admin", "admin");
+            // UsuarioServicios.getInstance().crear(tmp);
 
 
 
@@ -35,13 +36,15 @@ public class App {
            Javalin app = Javalin.create(conf ->{
             conf.addStaticFiles("/publico"); //desde la carpeta de resources
             }).start(7000);
+
             //creando el manejador
             System.out.println("\n\nServer started at Port:  7000\n\n");
             app.get("/", ctx -> ctx.result("Hola mundo"));
     
     
             // new UsersController(app).aplicarRutas();
-            // new mainController(app).aplicarRutas();
+            new mainController(app).aplicarRutas();
+            
     }
 
     public static String getModoConexion(){
