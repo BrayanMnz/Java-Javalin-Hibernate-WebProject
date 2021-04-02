@@ -11,7 +11,6 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
-<script src="App.js"></script>
 
 <style> 
 .register{
@@ -129,28 +128,42 @@
         list-style-type: none;
         background: -webkit-linear-gradient(right, #3931af, #00c6ff);
        }
-
-
 </style>
+
+   
+<!-- <script>
+
+    const db = new Dexie("Parcial2_BrayanMnz");
+    
+    db.version(1).stores({
+     Formulario: '++&id_Formulario, Nombre, Sector, NivelEscolar, Latitud, Longitud',
+     Usuario: '++&id_Usuario, username, passwd_Usuario, role_Usuario'
+    });
+
+    registrarFormulario();
+
+    function registrarFormulario(){
+       
+       db.Formulario.put({
+           
+              Nombre: "Pepe",
+              Sector: "Bye",
+              NivelEscolar: "nivelEscolar",
+              Latitud: "latitud",
+              Longitud: "longitud"
+
+
+           });
+        }
+
+</script> -->
 
 
 </head>
-<body onload="init()" style="  background: -webkit-linear-gradient(left, #3931af, #00c6ff);">
 
 
+<body style="  background: -webkit-linear-gradient(left, #3931af, #00c6ff);">
 
-
-
-
-
-
-
-
-
-
-    <script>
-        location();
-    </script>
 
     <nav id="navigation" class="navbar navbar-expand-lg navbar-dark bg-dark">
         <!-- Container wrapper -->
@@ -225,17 +238,17 @@
                         <div class="row register-form">
                             <div class="col-md-6">
                                 <div class="form-group">
-                            <input name="nombre" type="text" class="form-control" placeholder="Nombres  *"  form="RegistrarPersona" />
+                            <input id="nombre" name="nombre" type="text" class="form-control" placeholder="Nombres  *"  form="RegistrarPersona" />
                                 </div>
                                 <div class="form-group">
-                                    <input name="apellidos" type="text" class="form-control" placeholder="Apellidos  *" form="RegistrarPersona" />
+                                    <input id="apellidos" name="apellidos" type="text" class="form-control" placeholder="Apellidos  *" form="RegistrarPersona" />
                                 </div>
                               
                                 <div class="form-group">
                                     
                                 </div>
                                 <div class="form-group">
-                                    <input name="sector" type="text" class="form-control" placeholder="Sector  *" form="RegistrarPersona" />
+                                    <input id="sector" name="sector" type="text" class="form-control" placeholder="Sector  *" form="RegistrarPersona" />
                                 </div>
                                 <div class="form-group">
                                     <div class="maxl">
@@ -257,7 +270,7 @@
                                
 
                                 <div class="form-group" >
-                                    <select name="nivelEscolar" class="form-control" form="RegistrarPersona">
+                                    <select id="nivelEscolar" name="nivelEscolar" class="form-control" form="RegistrarPersona">
                                         <option class="hidden"  selected disabled>Seleccione Nivel Escolar</option>
                                         <option>Básico </option>
                                         <option>Medio</option>
@@ -268,38 +281,26 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <input name="latitud" id="latitud" type="text" class="form-control" placeholder="Latitud " form="RegistrarPersona" readonly />
+                                    <input  name="latitud" id="latitud" type="text" class="form-control" placeholder="Latitud " form="RegistrarPersona" readonly />
                                 </div>
 
                                 <div class="form-group">
-                                    <input name="longitud" id="longitud"  type="text" class="form-control" placeholder="Longitud  " form="RegistrarPersona" readonly/>
+                                    <input  name="longitud" id="longitud"  type="text" class="form-control" placeholder="Longitud  " form="RegistrarPersona" readonly/>
                                 </div>
-
-                            
-                                <!-- <input onclick="registrarFormulario()" class="btnRegister"  value="Registrar" form="RegistrarPersona"/> -->
-                                <button class="btnRegister" onclick="registrarFormulario()">Registrar</button>
+                                <button id="btnRegistrar" class="btnRegister" onclick="regFormulario()" >Registrar</button>  
+                            </form>
+                               
                             </div>
                         </div>
                     </div>
-                   
 
                             </div>
                         
                         </div>
                     </div>
                 </div>
-            </form>
 
-
-
-
-
-
-
-
-
-
-
+            </body>
 
 
 
@@ -308,7 +309,7 @@
 
 
         <!-- Script para obtener ubicación.   -->
-        <script src="/js/jquery-3.2.1.min.js"></script>
+     
 
             <script> 
 
@@ -320,10 +321,9 @@
             maximumAge: 0
         }
 
-        
+
         $(document).ready(setearLocalizacion());
-        
-        
+
         function setearLocalizacion() {
 
 
@@ -331,11 +331,11 @@
             navigator.geolocation.getCurrentPosition(
             function(geodata){
                 var coordenadas = geodata.coords;
-                document.getElementById("#latitud").value = coordenadas.latitude;
+                document.getElementById("latitud").value = coordenadas.latitude;
 
-                document.getElementById("#longitud").value = coordenadas.longitude;
+                document.getElementById("longitud").value = coordenadas.longitude;
             }, 
-            
+
             function(){
                 document.querySelector("#latitud").value = "Error al obtener la ubicación";
                 document.querySelector("#longitud").value = "Error al obtener la ubicación";
@@ -344,7 +344,7 @@
 
             //Obteniendo el cambio de referencia.
             id = navigator.geolocation.watchPosition(
-            
+
             function(geodata){
                 var coordenadas = geodata.coords;
                 document.querySelector("#latitud").value = coordenadas.latitude;
@@ -355,7 +355,7 @@
                     console.log("Finalizando la trama")
                 }
             },
-            
+
             function(error){
                 //recibe un objeto con dos propiedades: code y message.
                 document.querySelector("#latitud").value = "Error al obtener la ubicación. Codigo: "+error.code+", mensaje: "+error.message;
@@ -365,38 +365,64 @@
 
             </script>
 
-
-
-
- <!-- Script para creación y manipulación Indexed DB usando Dexie.js         -->
-       <!-- Include Dexie -->
-       <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
-       <script>
-               var db = new Dexie("Parcial2");
-                    
-                   db.version(1).stores({
-                    Formulario: '++&id_Formulario, Nombre, Sector, NivelEscolar, Latitud, Longitud',
-                    Usuario: '++&id_Usuario, username, passwd_Usuario, role_Usuario'
-                   });
+<script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
    
-   
-                   function registrarFormulario(){ 
-                       
-                       db.Formulario.put({
-                              Nombre: document.getElementById("#nombre").value +" "+document.getElementById("#apellidos").value,
-                              Sector: document.getElementById("#sector").value,
-                              NivelEscolar: document.getElementById("#nivelEscolar").value,
-                              Latitud: document.getElementById("#latitud").value,
-                              Longitud: document.getElementById("#longitud").value
-   
-   
-                           }); 
-                        } 
-                           
-                   
-       </script>
+
+<script>
+    //
+    // Define your database
+    //
+  
+// $(document).ready(()=>{
+
+    const db = new Dexie("Practica2_BrayanMnz");
+    db.version(1).stores({
+       formulario: '++&id_Formulario, nombre, sector, nivelEscolar, latitud, longitud',
+       usuario: '++&id_Usuario, username, passwd_Usuario, role_Usuario',
+    //    ghost:  '++id, esel'
+
+       
+    }); 
+    db.open().catch (function (err) {
+    console.error('Failed to open db: ' + (err.stack || err));
+});
+
+    // db.ghost.put({
+    //        esel: "si"
+    //     })
+// });
+
+    function regFormulario(){
+        // db.open().catch (function (err) {
+        // console.error('Failed to open db: ' + (err.stack || err));
+
+        db.formulario.put(
+         { 
+                          nombre:  document.querySelector("#nombre").value,
+                          sector: document.querySelector("#sector").value,
+                          nivelEscolar: document.querySelector("#nivelEscolar").value,
+                          latitud: document.querySelector("#latitud").value,
+                          longitud: document.querySelector("#longitud").value}).then (function(){
+
+
+        return db.formulario.get(1);
+    }).then(function (form) {
+        //
+        // Display the result
+        //
+        alert ("Se ha agregado " + form.nombre);
+    }).catch(function(error) {
+       //
+       // Finally don't forget to catch any error
+       // that could have happened anywhere in the
+       // code blocks above.
+       //
+       alert ("Ooops: " + error);
+    });
+    }
+    
+</script>
 
 
 
-</body>
 </html>

@@ -57,7 +57,7 @@ public class mainController extends BaseControlador {
                     String latitud = ctx.formParam("latitud");
 
                     Formulario auxFormulario = new Formulario(nombre+apellido,sector,nivelEscolar,latitud,longitud);
-                    serviciosFormularios.crear(auxFormulario);
+                   // serviciosFormularios.crear(auxFormulario);
 
 
                   
