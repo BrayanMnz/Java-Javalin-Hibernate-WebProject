@@ -136,35 +136,34 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
 
 <script>
 
-    
-        const db = new Dexie("Practica2_BrayanMnz");
-    db.version(1).stores({
-       formulario: '++&id_Formulario, nombre, sector, nivelEscolar, latitud, longitud',
-       usuario: '++&id_Usuario, username, passwd_Usuario, role_Usuario',
-    //    ghost:  '++id, esel'
 
-       
+        const db = new Dexie("Practica2_BrayanMnz");
+          db.version(1).stores({
+                        formulario: '++&id_Formulario, nombre, sector, nivelEscolar, latitud, longitud',
+                        usuario: '++&id_Usuario, username, passwd_Usuario, role_Usuario',
+
+
     }); 
     db.open().catch (function (err) {
     console.error('Failed to open db: ' + (err.stack || err));
 });
 
 
-const x = [];
+          const x = [];
 
-const estudiantes =  db.formulario.toArray()
-.then(list => {
-    list.forEach(item => {
-       x.push(item);
-    });
-})
-.catch(error => {
-    alert("Se encontró un error: "+error);
-});
+          const estudiantes =  db.formulario.toArray()
+                  .then(list => {
+                        list.forEach(item => {
+                          x.push(item);
+                                            });
+                                })
+                                  .catch(error => {
+                                    alert("Se encontró un error: "+error);
+                                                  });
 
 
     document.onload(imprimirTabla());
- 
+
   function imprimirTabla() {
             //creando la tabla...
             var tabla = document.createElement("table");
@@ -189,7 +188,7 @@ const estudiantes =  db.formulario.toArray()
                 filaTabla.insertCell().textContent = ""+x[key].nivelEscolar;
                 filaTabla.insertCell().textContent = ""+x[key].latitud;
                 filaTabla.insertCell().textContent = ""+x[key].longitud;
-                filaTabla.insertCell().innerHTML =  `<button class="btn btn-info btn-sm " onclick="imprimirTabla()"> <span class="glyphicon glyphicon-edit"></span></button> <span></span> <span><button class="btn btn-danger btn-sm " onclick="imprimirTabla()"> <span class="glyphicon glyphicon-remove"></span></button></span>`
+                filaTabla.insertCell().innerHTML =  `<button class="btn btn-info btn-sm " onclick="editar_form()"> <span class="glyphicon glyphicon-edit"></span></button> <span></span> <span><button class="btn btn-danger btn-sm " onclick="eliminar_form()"> <span class="glyphicon glyphicon-remove"></span></button></span>`
             }
 
             document.getElementById("listarFormularios").innerHTML="";
@@ -197,6 +196,52 @@ const estudiantes =  db.formulario.toArray()
         }
 
 
+    function eliminar_form() {
+
+      const id_Form = prompt("Indique Id del elemento a borrar: ");
+          alert("Eliminar elemento con Id: "+id_Form);
+
+      let obj = x.find(o => o.id_Formulario === id_Form);
+      let indx = x.indexOf(obj); 
+
+      
+    db.transaction('rw', db.formulario, function* () {
+    var deleteCount = yield db.formulario
+        .where("id_Formulario").equals(parseInt(id_Form))
+        .delete();
+
+        alert("Eliminados Correctamente: " + deleteCount + " Formularios");
+    }).catch (e => {
+        alert("Ocurrió un error al eliminar el elemento: "+e);
+    });
+
+
+      x.splice(indx,1);
+
+      
+      
+    }
+
+
+    function editar_form() {
+
+    var id_Form = parseInt(prompt("Indique Id del elemento a editar: "));
+
+    let obj = x.find(o => o.id_Formulario === id_Form);
+    let indx = x.indexOf(obj); 
+
+    var name = prompt("Editar Nombre:", x[indx].nombre);
+    var sect = prompt("Editar Sector:", x[indx].sector);
+    var NvlEscolar = prompt("Editar Nivel Escolar:", x[indx].nivelEscolar);
+
+    x[indx].nombre = name;
+    x[indx].sector = sect;
+    x[indx].nivelEscolar = NvlEscolar;
+
+    alert("Se ha modificado el registro correspondiente a: "+x[indx].nombre);
+
+
+}
 
 
 </script>
