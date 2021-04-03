@@ -59,7 +59,7 @@ public class mainController extends BaseControlador {
                     Formulario auxFormulario = new Formulario(nombre+apellido,sector,nivelEscolar,latitud,longitud);
                    // serviciosFormularios.crear(auxFormulario);
 
-
+                   ctx.redirect("/Principal/RegistrarPersona");
                   
                 });
 
@@ -77,6 +77,27 @@ public class mainController extends BaseControlador {
 
                     ctx.render("/publico/indexed_list.html",modelo);
 
+                });
+
+                get("/CrearUsuario", ctx-> {
+                    Map<String, Object> modelo = new HashMap<>();
+                    modelo.put("titulo", "Crear usuarios");
+                    ctx.render("/publico/crear_Usuario.html",modelo);
+                });
+
+
+                post("/CrearUsuario", ctx-> {
+                    
+                    String nombreUsuario = ctx.formParam("nmbr");
+                    String usrname = ctx.formParam("usrname");
+                    String contrasenia = ctx.formParam("passwd");
+                    String rolUser = ctx.formParam("rolUsuario");
+
+                    Usuario auxUsuario = new Usuario(usrname,contrasenia,nombreUsuario,rolUser);
+                    System.out.println(auxUsuario.username + auxUsuario.nombre_usuario);
+
+                    ctx.redirect("/Principal/CrearUsuario");
+                     
                 });
 
 

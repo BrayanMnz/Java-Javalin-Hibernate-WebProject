@@ -39,7 +39,7 @@ public class App {
 
             //creando el manejador
             System.out.println("\n\nServer started at Port:  7000\n\n");
-            app.get("/", ctx -> ctx.result("Hola mundo"));
+            app.get("/", ctx -> ctx.redirect("/Principal/Login"));
     
     
             // new UsersController(app).aplicarRutas();

@@ -13,9 +13,12 @@ public class Usuario {
     @Column
     public String username;
     @Column
-    public String rol_usuario; 
-    @Column
     public String passwd_usuario;
+    @Column
+    public String nombre_usuario;
+    @Column
+    public String rol_usuario; 
+    
 
     // @OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL , orphanRemoval = true)
     // private List<Formulario> formularios_usuario = new ArrayList<Formulario>();
@@ -25,10 +28,12 @@ public class Usuario {
     }
 
 
-    public Usuario(int id_usuario, String username, String passwd_usuario) {
+    public Usuario(String username, String passwd_usuario, String nombre_usuario, String rol_usuario) {
         this.id_usuario = id_usuario;
         this.username = username;
         this.passwd_usuario = passwd_usuario;
+        this.nombre_usuario = nombre_usuario;
+        this.rol_usuario = rol_usuario;
     }
 
 
@@ -63,6 +68,14 @@ public class Usuario {
     public void setPasswd_usuario(String passwd_usuario) {
         this.passwd_usuario = passwd_usuario;
     }
+    
 
+    public String getNombre_usuario() {
+        return this.nombre_usuario;
+    }
+
+    public void setNombre_usuario(String nombre_usuario) {
+        this.nombre_usuario = nombre_usuario;
+    }
 
 }
