@@ -237,8 +237,22 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
     x[indx].nombre = name;
     x[indx].sector = sect;
     x[indx].nivelEscolar = NvlEscolar;
+    
 
-    alert("Se ha modificado el registro correspondiente a: "+x[indx].nombre);
+    db.formulario.update(id_Form, 
+    {     nombre:  name,
+          sector: sect,
+          nivelEscolar: NvlEscolar,
+          }).then(function (updated) {
+        if (updated)
+        alert("Se ha modificado el registro correspondiente a: "+x[indx].nombre);
+  else
+   alert("Ocurrió un error tratando de modificar a:"+x[indx].nombre);
+});
+
+
+
+    
 
 
 }
