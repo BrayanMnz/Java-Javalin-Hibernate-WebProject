@@ -168,23 +168,28 @@ const estudiantes =  db.formulario.toArray()
   function imprimirTabla() {
             //creando la tabla...
             var tabla = document.createElement("table");
+            const button = document.createElement("BUTTON").setAttribute("class","btn btn-warning");
             tabla.setAttribute("class","table table-hover table-dark"); 
             var filaTabla = tabla.insertRow();
             
+            filaTabla.insertCell().textContent = "Id";
             filaTabla.insertCell().textContent = "Nombre";
             filaTabla.insertCell().textContent = "Sector";
             filaTabla.insertCell().textContent = "Nivel Escolar";
             filaTabla.insertCell().textContent = "Latitud";
             filaTabla.insertCell().textContent = "Longitud";
+            filaTabla.insertCell().textContent = "Acción";
 
             for (var key in x) {
                 //
                 filaTabla = tabla.insertRow();
+                filaTabla.insertCell().textContent = ""+x[key].id_Formulario;
                 filaTabla.insertCell().textContent = ""+x[key].nombre;  
                 filaTabla.insertCell().textContent = ""+x[key].sector;
                 filaTabla.insertCell().textContent = ""+x[key].nivelEscolar;
                 filaTabla.insertCell().textContent = ""+x[key].latitud;
                 filaTabla.insertCell().textContent = ""+x[key].longitud;
+                filaTabla.insertCell().innerHTML =  `<button class="btn btn-info btn-sm " onclick="imprimirTabla()"> <span class="glyphicon glyphicon-edit"></span></button> <span></span> <span><button class="btn btn-danger btn-sm " onclick="imprimirTabla()"> <span class="glyphicon glyphicon-remove"></span></button></span>`
             }
 
             document.getElementById("listarFormularios").innerHTML="";

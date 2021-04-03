@@ -405,7 +405,7 @@
                           longitud: document.querySelector("#longitud").value}).then (function(){
 
 
-        return db.formulario.get(1);
+        return db.formulario.get(db.formulario.count() - 1);
     }).then(function (form) {
         //
         // Display the result
