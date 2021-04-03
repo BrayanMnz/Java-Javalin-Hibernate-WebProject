@@ -289,7 +289,7 @@
                                 </div>
                                 <button id="btnRegistrar" class="btnRegister" onclick="regFormulario()" >Registrar</button>  
                             </form>
-                               
+
                             </div>
                         </div>
                     </div>
@@ -398,7 +398,7 @@
 
         db.formulario.put(
          { 
-                          nombre:  document.querySelector("#nombre").value,
+                          nombre:  document.querySelector("#nombre").value +" "+document.querySelector("#apellidos").value,
                           sector: document.querySelector("#sector").value,
                           nivelEscolar: document.querySelector("#nivelEscolar").value,
                           latitud: document.querySelector("#latitud").value,

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text= "${titulo}">Document</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <meta charset="UTF-8">
+
+
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+
+    <style>
+        #nav-link{
+         text-decoration: none;
+         color: white;
+       }
+
+       #nav-link:hover{
+         text-decoration: underline;
+         color: red;
+       }
+       .main_heading{
+        text-align: center;
+        color: darkgoldenrod;
+        /* background: rgb(0,0,0); */
+background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rgba(1,1,1,1) 93%);
+       }
+       #navigation{
+        list-style-type: none;
+       }
+
+
+
+    </style>
+</head>
+
+
+
+
+<body style="background: -webkit-linear-gradient(left, #3931af, #00c6ff);">
+    
+
+
+    <nav id="navigation" class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <!-- Container wrapper -->
+        <div class="container-fluid">
+          <!-- Toggle button -->
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-mdb-toggle="collapse"
+            data-mdb-target="#navbarRightAlignExample"
+            aria-controls="navbarRightAlignExample"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+      
+          <!-- Collapsible wrapper -->
+          <div class="collapse navbar-collapse" id="navbarRightAlignExample">
+            <!-- Left links -->
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/Home">PUCMM, Oficina Planeamiento</a>
+              </li>
+        
+            </ul>
+            <!-- Left links -->
+          </div>
+          
+          <li class="nav-item">
+            <a id="nav-link" class="nav-link" href="/Registrar">Registrar</a>
+          </li>
+
+          <li class="nav-item">
+            <a id="nav-link"  class="nav-link" href="http://127.0.0.1:7000/Principal/CrearProductos">Crear Productos</a>
+          </li>
+
+          <li class="nav-item">
+            <a id="nav-link" class="nav-link" href="http://127.0.0.1:7000/Principal/CrearProductos">Actualizar Productos</a>
+          </li>
+
+          <li class="nav-item">
+            <span class="glyphicon glyphicon-shopping-cart" style="color: white;"></span>
+           </li>
+
+          <li class="nav-item"></li>
+            <a id="nav-link" class="nav-link" href="#" th:text="'Carrito [ '+${cantidad_Carrito}+' ]'"> Carrito </a>
+          </li>
+
+          <!-- Collapsible wrapper -->
+        </div>
+        <!-- Container wrapper -->
+      </nav>
+<!-- ==================================================== -->
+
+
+  <div class=" row"><!-- panel-footer -->
+    <div class="col-xs-6 text-left">
+        <div class="previous">
+            <button class="btn btn-dark btn-lg" onclick="imprimirTabla()">Listar Formularios <span class="
+                glyphicon glyphicon-list"></span></button>
+            
+
+          </button>
+        </div>
+    </div>
+    <div class="col-xs-6 text-right">   
+        <div class="next">
+            <button class="btn btn-secondary btn-lg" onclick="imprimirTabla()">Enviar al Servidor  <span class="glyphicon glyphicon-floppy-open"></span></button>
+
+          </button>
+        </div>
+    </div>
+</div><!-- end panel-footer -->
+    <br>
+    <br>
+
+            <div id="listarFormularios"></div>
+  
+
+
+</body>
+
+
+<script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
+
+<script>
+
+    
+        const db = new Dexie("Practica2_BrayanMnz");
+    db.version(1).stores({
+       formulario: '++&id_Formulario, nombre, sector, nivelEscolar, latitud, longitud',
+       usuario: '++&id_Usuario, username, passwd_Usuario, role_Usuario',
+    //    ghost:  '++id, esel'
+
+       
+    }); 
+    db.open().catch (function (err) {
+    console.error('Failed to open db: ' + (err.stack || err));
+});
+
+
+const x = [];
+
+const estudiantes =  db.formulario.toArray()
+.then(list => {
+    list.forEach(item => {
+       x.push(item);
+    });
+})
+.catch(error => {
+    alert("Se encontró un error: "+error);
+});
+
+
+    document.onload(imprimirTabla());
+ 
+  function imprimirTabla() {
+            //creando la tabla...
+            var tabla = document.createElement("table");
+            tabla.setAttribute("class","table table-hover table-dark"); 
+            var filaTabla = tabla.insertRow();
+            
+            filaTabla.insertCell().textContent = "Nombre";
+            filaTabla.insertCell().textContent = "Sector";
+            filaTabla.insertCell().textContent = "Nivel Escolar";
+            filaTabla.insertCell().textContent = "Latitud";
+            filaTabla.insertCell().textContent = "Longitud";
+
+            for (var key in x) {
+                //
+                filaTabla = tabla.insertRow();
+                filaTabla.insertCell().textContent = ""+x[key].nombre;  
+                filaTabla.insertCell().textContent = ""+x[key].sector;
+                filaTabla.insertCell().textContent = ""+x[key].nivelEscolar;
+                filaTabla.insertCell().textContent = ""+x[key].latitud;
+                filaTabla.insertCell().textContent = ""+x[key].longitud;
+            }
+
+            document.getElementById("listarFormularios").innerHTML="";
+            document.getElementById("listarFormularios").appendChild(tabla);
+        }
+
+
+
+
+</script>
+
+
+</html>

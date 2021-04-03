@@ -70,7 +70,14 @@ public class mainController extends BaseControlador {
                 });
 
                
-                
+                get("/ListarFormularios", ctx-> {
+
+                    Map<String, Object> modelo = new HashMap<>();
+                    modelo.put("title","Formularios a enviar al servidor");
+
+                    ctx.render("/publico/indexed_list.html",modelo);
+
+                });
 
 
                 });
