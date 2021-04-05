@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text= "${titulo}">Crear Usuario</title>
+
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+
+<!------ Para el Navbar---------->
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Para el Navbar---------->
+
+
+<style>
+
+.topnav a:hover {
+    border-bottom: 3px solid red;
+}
+</style>
+
+</head>
+
+
+    <!-- Login -->
+<body style="  background: -webkit-linear-gradient(left, #3931af, #00c6ff);">
+
+
+	                <!-- Navigation Bar  -->
+
+	<nav  class="navbar navbar-expand-lg navbar-light " style=" background: -webkit-linear-gradient(right, #3931af, #00c6ff);">
+        <a class="navbar-brand" href="/Principal/Home">PUCMM, Oficina Planeamiento</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto topnav">
+             
+                <li class="nav-item">
+                    <a class="nav-link" href="/Principal/RegistrarPersona">Reg Formulario</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Principal/ListarFormularios">Ver Formularios</a>
+                </li>
+              
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary text-white" type="button" href="/Principal/Login" >Iniciar Sesión</a>                  
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-danger text-white" type="button" href="/Principal/CrearUsuario" >Registrar</a>
+                </li>
+            </ul>
+        </div>
+
+    </nav>
+
+
+                <!-- Navigation Bar  -->
+<br>
+
+
+
+
+    <div class="container">
+        <div class="row justify-content-center">
+        <div class="col-md-6">
+        <div class="card">
+        <header class="card-header">
+            <a href="/Principal/Login" class="float-right btn btn-outline-primary mt-1">Iniciar Sesión</a>
+            <h4 class="card-title mt-2">Crear Usuario</h4>
+        </header>
+        <article class="card-body">
+        <form id="form_CrearUsuario" action="/Principal/CrearUsuario" method="post">
+            <div class="form-row">
+                <div class="col form-group">
+                    <label>Nombre Completo</label>
+                      <input name="nmbr" type="text" class="form-control" placeholder="Brayan Muñoz V. " required>
+                </div> <!-- form-group end.// -->
+            </div> <!-- form-row end.// -->
+            <div class="form-group">
+                <label>Nombre de Usuario</label>
+                <input name="usrname" type="text" class="form-control" placeholder="BrayanMnz" required>
+            </div> <!-- form-group end.// -->
+           
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label>Contraseña</label>
+                  <input name="passwd" type="password" class="form-control" required>
+                </div> <!-- form-group end.// -->
+
+                <div class="form-group col-md-6">
+                    <label>Confirmar contraseña</label>
+                    <input name="" type="password" class="form-control" required>
+                  </div> <!-- form-group end.// -->
+               
+            </div> <!-- form-row.// -->
+            <div class="form-group ">
+                <label>Asignar Rol </label>
+                <select required id="rolUsuario" name="rolUsuario" class="form-control" form="RegistrarPersona" >
+                    <option class="hidden"  selected disabled>Seleccione Rol para el Usuario</option>
+                    <option>Administrador </option>
+                    
+                </select>
+              </div> <!-- form-group end.// -->
+         
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block" form="form_CrearUsuario"> Registrar  </button>
+            </div> <!-- form-group// -->                                              
+        </form>
+        </article> <!-- card-body end .// -->
+        </div> <!-- card.// -->
+        </div> <!-- col.//-->
+        </div> <!-- row.//-->
+        </div> 
+        <!--container end.//-->
+        
+
+
+
+</body>
+</html>
