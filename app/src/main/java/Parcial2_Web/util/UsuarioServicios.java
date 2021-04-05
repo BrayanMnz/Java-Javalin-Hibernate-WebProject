@@ -22,7 +22,7 @@ public class UsuarioServicios extends GestionDb<Usuario>  {
 
         try {
             Usuario aux = find(username);
-            if (aux.getusername().equals(username) && aux.getPasswd_usuario().equals(password)){
+            if (aux.getusername().equalsIgnoreCase(username) && aux.getPasswd_usuario().equals(password)){
                 return true;
             }else {
                 return false;

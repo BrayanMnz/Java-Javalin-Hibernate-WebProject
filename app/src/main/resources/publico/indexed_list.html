@@ -17,6 +17,12 @@
 
 
 
+<!------ Para el Navbar---------->
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Para el Navbar---------->
+
     <style>
         #nav-link{
          text-decoration: none;
@@ -36,7 +42,9 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
        #navigation{
         list-style-type: none;
        }
-
+       .topnav a:hover {
+    border-bottom: 3px solid red;
+}
 
 
     </style>
@@ -49,59 +57,39 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
     
 
 
-    <nav id="navigation" class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <!-- Container wrapper -->
-        <div class="container-fluid">
-          <!-- Toggle button -->
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-mdb-toggle="collapse"
-            data-mdb-target="#navbarRightAlignExample"
-            aria-controls="navbarRightAlignExample"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <i class="fas fa-bars"></i>
-          </button>
-      
-          <!-- Collapsible wrapper -->
-          <div class="collapse navbar-collapse" id="navbarRightAlignExample">
-            <!-- Left links -->
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/Home">PUCMM, Oficina Planeamiento</a>
-              </li>
-        
-            </ul>
-            <!-- Left links -->
-          </div>
-          
-          <li class="nav-item">
-            <a id="nav-link" class="nav-link" href="/Principal/RegistrarPersona">Registrar</a>
-          </li>
+    	                <!-- Navigation Bar  -->
+                    
+                      <nav class="navbar navbar-expand-lg navbar-light " style=" background: -webkit-linear-gradient(right, #3931af, #00c6ff);">
+                        <a class="navbar-brand" href="/Principal/Home">PUCMM, Oficina Planeamiento</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav ml-auto topnav">
 
-          <li class="nav-item">
-            <a id="nav-link"  class="nav-link" href="/Principal/ListarFormularios">Ver Formularios</a>
-          </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/Principal/RegistrarPersona">Reg Formulario</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/Principal/ListarFormularios">Ver Formularios</a>
+                                </li>
+                              
+                                <li class="nav-item">
+                                  <a class="nav-link btn btn-primary text-white" type="button" href="/Principal/Login" >Iniciar Sesión</a>                  
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link btn btn-danger text-white" type="button" href="/Principal/CrearUsuario" >Registrar</a>
+                              </li>
+                            </ul>
+                          </div>
+                
+                    </nav>
+                </div>
+                
+                                <!-- Navigation Bar  -->
+                <br>
 
-          <li class="nav-item">
-            <a id="nav-link" class="nav-link" href="http://127.0.0.1:7000/Principal/CrearProductos">Actualizar Productos</a>
-          </li>
-
-          <li class="nav-item">
-            <span class="glyphicon glyphicon-shopping-cart" style="color: white;"></span>
-           </li>
-
-          <li class="nav-item"></li>
-            <a id="nav-link" class="nav-link" href="#" th:text="'Carrito [ '+${cantidad_Carrito}+' ]'"> Carrito </a>
-          </li>
-
-          <!-- Collapsible wrapper -->
-        </div>
-        <!-- Container wrapper -->
-      </nav>
-<!-- ==================================================== -->
 
 
   <div class=" row"><!-- panel-footer -->
@@ -126,6 +114,35 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
     <br>
 
             <div id="listarFormularios"></div>
+
+            <!-- <iframe src="https://maps.google.com/maps?q=0, 0&z=15&output=embed" frameborder="0"
+            style="border:0; width: 100%; height: 290px;" allowfullscreen id="map"></iframe> -->
+
+                      <!-- Modal -->
+    <div class="modal" id="myModal">
+      <div class="modal-dialog">
+          <div class="modal-content">
+
+              <!-- Modal Header -->
+              <div class="modal-header">
+                  <h4 class="modal-title">Ubicación del Registro Seleccionado</h4>
+                  <button type="button" class="close" data-dismiss="modal">×</button>
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body">
+                <iframe src="https://maps.google.com/maps?q=0, 0&z=15&output=embed" frameborder="0"
+                style="border:0; width: 100%; height: 290px;" allowfullscreen id="map"></iframe>
+              </div>
+
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+              </div>
+
+          </div>
+      </div>
+  </div>
   
 
 
@@ -133,7 +150,7 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
 
 
 <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 
 
@@ -167,7 +184,6 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
   function imprimirTabla() {
             //creando la tabla...
             var tabla = document.createElement("table");
-            const button = document.createElement("BUTTON").setAttribute("class","btn btn-warning");
             tabla.setAttribute("class","table table-hover table-dark"); 
             var filaTabla = tabla.insertRow();
             
@@ -175,8 +191,7 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
             filaTabla.insertCell().textContent = "Nombre";
             filaTabla.insertCell().textContent = "Sector";
             filaTabla.insertCell().textContent = "Nivel Escolar";
-            filaTabla.insertCell().textContent = "Latitud";
-            filaTabla.insertCell().textContent = "Longitud";
+            filaTabla.insertCell().textContent = "Ubicación";
             filaTabla.insertCell().textContent = "Acción";
 
             for (var key in x) {
@@ -186,9 +201,15 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
                 filaTabla.insertCell().textContent = ""+x[key].nombre;  
                 filaTabla.insertCell().textContent = ""+x[key].sector;
                 filaTabla.insertCell().textContent = ""+x[key].nivelEscolar;
-                filaTabla.insertCell().textContent = ""+x[key].latitud;
-                filaTabla.insertCell().textContent = ""+x[key].longitud;
-                filaTabla.insertCell().innerHTML =  `<button class="btn btn-info btn-sm " onclick="editar_form()"> <span class="glyphicon glyphicon-edit"></span></button> <span></span> <span><button class="btn btn-danger btn-sm " onclick="eliminar_form()"> <span class="glyphicon glyphicon-remove"></span></button></span>`
+                // filaTabla.insertCell().innerHTML = `<id="hola" button class="btn btn-info btn-sm" onclick="verMapa()"> <span class="glyphicon glyphicon-edit"></span></button> `;
+
+
+                filaTabla.insertCell().innerHTML =  `
+                <a class="nav-link btn btn-primary text-white"  onclick="verMapa()" type="button" href="#" data-toggle="modal" data-target="#myModal">Ver en Mapa</a>                  
+           `;
+
+
+                filaTabla.insertCell().innerHTML =  `<button class="btn btn-info btn-sm " onclick="editar_form()"> <span class="glyphicon glyphicon-edit"></span></button> <span></span> <span><button class="btn btn-danger btn-sm " onclick="eliminar_form()"> <span class="glyphicon glyphicon-remove"></span></button></span>`;
             }
 
             document.getElementById("listarFormularios").innerHTML="";
@@ -251,11 +272,30 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
 });
 
 
-
-    
-
-
 }
+
+
+    function verMapa() {
+
+      var id_Form = parseInt(prompt("Indique Id del elemento que desea ver en el Mapa: "));
+      let obj = x.find(o => o.id_Formulario === id_Form);
+      let indx = x.indexOf(obj); 
+
+      var latitud = x[indx].latitud;
+      var longitud = x[indx].longitud;
+
+      document.getElementById("map").src = "https://maps.google.com/maps?q=" + latitud + ", " + longitud +
+            "&z=15&output=embed";
+
+      
+
+      // console.log(longitud + latitud);
+
+      //  $("myModal").modal();
+      // alert("hola");
+      
+    }
+
 
 
 </script>

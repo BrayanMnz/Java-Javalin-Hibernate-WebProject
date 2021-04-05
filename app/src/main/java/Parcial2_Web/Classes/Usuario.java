@@ -6,10 +6,11 @@ import java.util.*;
 @Entity
 public class Usuario {
     
-    @Id    
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Se genera el ID automatico
-    public int id_usuario;
+    // @Id    
+    // @GeneratedValue(strategy = GenerationType.IDENTITY) // Se genera el ID automatico
+    // public int id_usuario;
 
+    @Id
     @Column
     public String username;
     @Column
@@ -29,7 +30,7 @@ public class Usuario {
 
 
     public Usuario(String username, String passwd_usuario, String nombre_usuario, String rol_usuario) {
-        this.id_usuario = id_usuario;
+        // this.id_usuario = id_usuario;
         this.username = username;
         this.passwd_usuario = passwd_usuario;
         this.nombre_usuario = nombre_usuario;
@@ -37,13 +38,13 @@ public class Usuario {
     }
 
 
-    public int getId_usuario() {
-        return this.id_usuario;
-    }
+    // public int getId_usuario() {
+    //     return this.id_usuario;
+    // }
 
-    public void setId_usuario(int id_usuario) {
-        this.id_usuario = id_usuario;
-    }
+    // public void setId_usuario(int id_usuario) {
+    //     this.id_usuario = id_usuario;
+    // }
 
     public String getusername() {
         return this.username;

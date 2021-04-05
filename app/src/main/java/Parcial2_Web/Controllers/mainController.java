@@ -69,6 +69,28 @@ public class mainController extends BaseControlador {
                     ctx.render("/publico/Login.html",modelo);
                 });
 
+
+                post("/Login", ctx-> {
+
+                    String user = ctx.formParam("username");
+                    String passwrd = ctx.formParam("password");
+
+                    System.out.println(user);
+                    System.out.println(passwrd);   
+
+                    if(serviciosUsuarios.verify_user(user,passwrd)){
+                        ctx.redirect("/Principal/RegistrarPersona");
+                        System.out.println("Ay si, essss el! ");  
+                    } else {
+                        System.out.println("USUARIO NO EXISTEE!");
+
+                    }
+
+
+                });
+
+
+
                
                 get("/ListarFormularios", ctx-> {
 
@@ -94,7 +116,7 @@ public class mainController extends BaseControlador {
                     String rolUser = ctx.formParam("rolUsuario");
 
                     Usuario auxUsuario = new Usuario(usrname,contrasenia,nombreUsuario,rolUser);
-                    System.out.println(auxUsuario.username + auxUsuario.nombre_usuario);
+                    serviciosUsuarios.crear(auxUsuario);
 
                     ctx.redirect("/Principal/CrearUsuario");
                      

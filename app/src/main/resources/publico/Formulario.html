@@ -128,36 +128,21 @@
         list-style-type: none;
         background: -webkit-linear-gradient(right, #3931af, #00c6ff);
        }
+
+       .topnav a:hover {
+    border-bottom: 3px solid red;
+}
+
+       
 </style>
 
-   
-<!-- <script>
-
-    const db = new Dexie("Parcial2_BrayanMnz");
-    
-    db.version(1).stores({
-     Formulario: '++&id_Formulario, Nombre, Sector, NivelEscolar, Latitud, Longitud',
-     Usuario: '++&id_Usuario, username, passwd_Usuario, role_Usuario'
-    });
-
-    registrarFormulario();
-
-    function registrarFormulario(){
-       
-       db.Formulario.put({
-           
-              Nombre: "Pepe",
-              Sector: "Bye",
-              NivelEscolar: "nivelEscolar",
-              Latitud: "latitud",
-              Longitud: "longitud"
 
 
-           });
-        }
-
-</script> -->
-
+<!------ Para el Navbar---------->
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Para el Navbar---------->
 
 </head>
 
@@ -165,59 +150,38 @@
 <body style="  background: -webkit-linear-gradient(left, #3931af, #00c6ff);">
 
 
-    <nav id="navigation" class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <!-- Container wrapper -->
-        <div class="container-fluid">
-          <!-- Toggle button -->
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-mdb-toggle="collapse"
-            data-mdb-target="#navbarRightAlignExample"
-            aria-controls="navbarRightAlignExample"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <i class="fas fa-bars"></i>
-          </button>
-      
-          <!-- Collapsible wrapper -->
-          <div class="collapse navbar-collapse" id="navbarRightAlignExample">
-            <!-- Left links -->
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/Home">PUCMM, Oficina Planeamiento</a>
-              </li>
-        
-            </ul>
-            <!-- Left links -->
-          </div>
-          
-          <li class="nav-item">
-            <a id="nav-link" class="nav-link" href="//Principal/RegistrarPersona">Registrar</a>
-          </li>
-
-          <li class="nav-item">
-            <a id="nav-link"  class="nav-link" href="/Principal/ListarFormularios">Ver Formularios</a>
-          </li>
-
-          <li class="nav-item">
-            <a id="nav-link" class="nav-link" href="http://127.0.0.1:7000/Principal/CrearProductos">Actualizar Productos</a>
-          </li>
-
-          <li class="nav-item">
-            <span class="glyphicon glyphicon-shopping-cart" style="color: white;"></span>
-           </li>
-
-          <li class="nav-item"></li>
-            <a id="nav-link" class="nav-link" href="#" th:text="'Carrito [ '+${cantidad_Carrito}+' ]'"> Carrito </a>
-          </li>
-
-          <!-- Collapsible wrapper -->
-        </div>
-        <!-- Container wrapper -->
-      </nav>
-<!-- ==================================================== -->
+	                <!-- Navigation Bar  -->
+                    
+                    <nav id="navbar" class="navbar navbar-expand-lg navbar-light " style=" background: -webkit-linear-gradient(right, #3931af, #00c6ff);">
+                        <a class="navbar-brand" href="/Principal/Home">PUCMM, Oficina Planeamiento</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav ml-auto topnav">
+                             
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/Principal/RegistrarPersona">Reg Formulario</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/Principal/ListarFormularios">Ver Formularios</a>
+                                </li>
+                              
+                                <li class="nav-item">
+                                    <a class="nav-link btn btn-primary text-white" type="button" href="/Principal/Login" >Iniciar Sesión</a>                  
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link btn btn-danger text-white" type="button" href="/Principal/CrearUsuario" >Registrar</a>
+                                </li>
+                            </ul>
+                        </div>
+                            
+                
+                    </nav>
+                </div>
+                
+                                <!-- Navigation Bar  -->
 
 <form id="RegistrarPersona" action="/Principal/RegistrarPersona" method="post">
     <div class="container register">
