@@ -37,6 +37,12 @@ dependencies {
 
 }
 
+shadowJar{
+    baseName = 'app'
+    classifier = ''
+    archiveVersion = ''
+}
+
 application {
     // Define the main class for the application.
     mainClass = 'Parcial2_Web.App'
