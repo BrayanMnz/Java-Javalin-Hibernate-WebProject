@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text= "${titulo}">Usuarios</title>
+
+
+    <!-- <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script> -->
+    <!-- <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
+    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+<!-- 
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css"> -->
+  
+
+    
+<!------ Para el Navbar---------->
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Para el Navbar---------->
+
+   
+ 
+
+
+<style>
+
+#nav-link{
+         text-decoration: none;
+         color: white;
+       }
+
+       #nav-link:hover{
+         text-decoration: underline;
+         color: red;
+       }
+       .main_heading{
+        text-align: center;
+        color: darkgoldenrod;
+        /* background: rgb(0,0,0); */
+background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rgba(1,1,1,1) 93%);
+       }
+       #navigation{
+        list-style-type: none;
+       }
+       .topnav a:hover {
+    border-bottom: 3px solid red;
+}
+#navi{
+        color: black;
+    }
+
+      #navi{
+        color: black;
+    }
+</style>
+
+</head>
+<body style="  background: -webkit-linear-gradient(left, #3931af, #00c6ff); margin: 0px;">
+      
+	               <!-- Navigation Bar  -->
+                    
+                   <nav id="navbar" class="navbar navbar-expand-lg navbar-light " style=" background: -webkit-linear-gradient(right, #3931af, #00c6ff);">
+                    <a class="navbar-brand" href="/Principal/Home">PUCMM, Oficina Planeamiento</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+            
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto topnav">
+                           
+                            <li class="nav-item">
+                                <li class="nav-link">
+                                    <a id="navi" href="#" class="dropdown-toggle" data-toggle="dropdown">Formularios</a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/Principal/RegistrarPersona">Reg Formulario</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/Principal/ListarFormularios">Ver Formularios</a>
+                                        </li>
+                                    </ul>
+                                  </li> 
+            
+            
+                                  <li class="nav-link">
+                                    <a id="navi" href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios</a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/Principal/VerUsuarios">Ver Usuarios</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/Principal/CrearUsuarios">Crear Usuario</a>
+                                        </li>
+                                    </ul>
+                                  </li>
+                            </li>
+                          
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-primary text-white" type="button" href="/Principal/Login" >Iniciar Sesión</a>                  
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-danger text-white" type="button" href="/Principal/CrearUsuario" >Registrar</a>
+                            </li>
+                        </ul>
+                    </div>
+                        
+            
+                </nav>
+            </div>
+            
+                            <!-- Navigation Bar  -->
+
+
+                    <div class="btn-toolbar">
+                        <form id="adduser" action="/Principal/CrearUsuario" method="get"></form>
+                        <button class="btn btn-primary" form="adduser">Añadir Usuario</button>
+
+                    </div>
+                    <table class="table table-hover table-dark">
+                      <thead>
+                        <tr>
+                        <th>Nombre de Usuario</th>
+                        <th>Nombre Completo</th>
+                        <th>Rol del usuario</th>
+                        <th>Acción</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr th:each="usuario : ${misUsuarios}">
+                          <td th:text="${usuario.USERNAME}">BrayanMnz</td>
+                          <td th:text="${usuario.Nombre_Usuario}">Brayan Muñoz V.</td>
+                          <td th:text="${usuario.ROL_USUARIO}">Administrador</td>
+                          <td><button class="btn btn-info btn-sm " onclick="editar_form()"> <span class="glyphicon glyphicon-edit"></span></button> <span></span> <span><button class="btn btn-danger btn-sm " onclick="eliminar_form()"> <span class="glyphicon glyphicon-remove"></span></button></span></td>
+                          <!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
+                        </tr>
+                      
+                      </tbody>
+                    </table>
+              
+
+
+</body>
+</html>

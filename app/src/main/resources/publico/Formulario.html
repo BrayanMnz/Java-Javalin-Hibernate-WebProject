@@ -117,7 +117,7 @@
   /* ================================================ */
 #nav-link{
          text-decoration: none;
-         color: white;
+         /* color: black; */
        }
 
        #nav-link:hover{
@@ -133,6 +133,9 @@
     border-bottom: 3px solid red;
 }
 
+    #navi{
+        color: black;
+    }
        
 </style>
 
@@ -160,12 +163,32 @@
                 
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ml-auto topnav">
-                             
+                               
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/Principal/RegistrarPersona">Reg Formulario</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/Principal/ListarFormularios">Ver Formularios</a>
+                                    <li class="nav-link">
+                                        <a id="navi" href="#" class="dropdown-toggle" data-toggle="dropdown">Formularios</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/Principal/RegistrarPersona">Reg Formulario</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/Principal/ListarFormularios">Ver Formularios</a>
+                                            </li>
+                                        </ul>
+                                      </li> 
+
+
+                                      <li class="nav-link">
+                                        <a id="navi" href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/Principal/VerUsuarios">Ver Usuarios</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/Principal/CrearUsuarios">Crear Usuario</a>
+                                            </li>
+                                        </ul>
+                                      </li>
                                 </li>
                               
                                 <li class="nav-item">

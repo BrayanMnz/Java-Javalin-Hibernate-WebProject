@@ -7,6 +7,7 @@ import io.javalin.Javalin;
 import io.javalin.plugin.rendering.JavalinRenderer;
 import io.javalin.plugin.rendering.template.JavalinThymeleaf;
 import java.util.*;
+import java.util.ArrayList;
 import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class mainController extends BaseControlador {
@@ -82,7 +83,10 @@ public class mainController extends BaseControlador {
                         ctx.redirect("/Principal/RegistrarPersona");
                         System.out.println("Ay si, essss el! ");  
                     } else {
+                        
                         System.out.println("USUARIO NO EXISTEE!");
+                        ctx.render("/publico/usuario_no.html");
+                        
 
                     }
 
@@ -120,6 +124,15 @@ public class mainController extends BaseControlador {
 
                     ctx.redirect("/Principal/CrearUsuario");
                      
+                });
+
+                get("/VerUsuarios", ctx-> {
+                    Map<String, Object> modelo = new HashMap<>();
+                    List<Usuario> usuarios = serviciosUsuarios.getInstance().findAll();
+                    System.out.println(usuarios);
+                    modelo.put("titulo", "Ver usuarios");
+                    modelo.put("misUsuarios",usuarios);
+                    ctx.render("/publico/VerUsuario.html",modelo);
                 });
 
 

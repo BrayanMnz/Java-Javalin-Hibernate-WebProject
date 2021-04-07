@@ -7,7 +7,7 @@
     <title th:text= "${titulo}">Document</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <meta charset="UTF-8">
+    
 
 
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -45,7 +45,9 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
        .topnav a:hover {
     border-bottom: 3px solid red;
 }
-
+#navi{
+        color: black;
+    }
 
     </style>
 </head>
@@ -59,7 +61,7 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
 
     	                <!-- Navigation Bar  -->
                     
-                      <nav class="navbar navbar-expand-lg navbar-light " style=" background: -webkit-linear-gradient(right, #3931af, #00c6ff);">
+                      <nav id="navbar" class="navbar navbar-expand-lg navbar-light " style=" background: -webkit-linear-gradient(right, #3931af, #00c6ff);">
                         <a class="navbar-brand" href="/Principal/Home">PUCMM, Oficina Planeamiento</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
@@ -67,22 +69,43 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
                 
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ml-auto topnav">
+                               
+                                <li class="nav-item">
+                                    <li class="nav-link">
+                                        <a id="navi" href="#" class="dropdown-toggle" data-toggle="dropdown">Formularios</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/Principal/RegistrarPersona">Reg Formulario</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/Principal/ListarFormularios">Ver Formularios</a>
+                                            </li>
+                                        </ul>
+                                      </li> 
 
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/Principal/RegistrarPersona">Reg Formulario</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/Principal/ListarFormularios">Ver Formularios</a>
+
+                                      <li class="nav-link">
+                                        <a id="navi" href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/Principal/VerUsuarios">Ver Usuarios</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/Principal/CrearUsuarios">Crear Usuario</a>
+                                            </li>
+                                        </ul>
+                                      </li>
                                 </li>
                               
                                 <li class="nav-item">
-                                  <a class="nav-link btn btn-primary text-white" type="button" href="/Principal/Login" >Iniciar Sesión</a>                  
-                              </li>
-                              <li class="nav-item">
-                                  <a class="nav-link btn btn-danger text-white" type="button" href="/Principal/CrearUsuario" >Registrar</a>
-                              </li>
+                                    <a class="nav-link btn btn-primary text-white" type="button" href="/Principal/Login" >Iniciar Sesión</a>                  
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link btn btn-danger text-white" type="button" href="/Principal/CrearUsuario" >Registrar</a>
+                                </li>
                             </ul>
-                          </div>
+                        </div>
+                            
                 
                     </nav>
                 </div>
