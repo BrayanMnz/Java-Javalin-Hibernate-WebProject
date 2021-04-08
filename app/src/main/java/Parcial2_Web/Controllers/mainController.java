@@ -9,11 +9,18 @@ import io.javalin.plugin.rendering.template.JavalinThymeleaf;
 import java.util.*;
 import java.util.ArrayList;
 import static io.javalin.apibuilder.ApiBuilder.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.eclipse.jetty.websocket.api.Session;
+import java.io.IOException;
 
 public class mainController extends BaseControlador {
 
     private UsuarioServicios serviciosUsuarios = UsuarioServicios.getInstance();
     private FormularioServicios serviciosFormularios = FormularioServicios.getInstance();
+
+    //ParaWebSockets
+    public static List<Session> usuariosConectados = new ArrayList<>();
+    public static List<Form_JSON> formsRecibidos = new ArrayList<>();
 
     public mainController(Javalin app) {
         super(app);
@@ -32,6 +39,20 @@ public class mainController extends BaseControlador {
 
     @Override
     public void aplicarRutas() {
+
+        app.before(ctx -> {
+
+            for (Form_JSON formu : formsRecibidos) {
+                if (formu.getNombre() != null && formu.getSector() != null && formu.getNivel_escolar() != null) {
+                    Formulario formuTmp = new Formulario(formu.getNombre(), formu.getSector(), formu.getNivel_escolar(), formu.getLatitud(), formu.getLongitud(), formu.getUsuario_formulario());
+                    if (FormularioServicios.getInstance().findByNombre(formuTmp.getNombre()).isEmpty()) {
+                        FormularioServicios.getInstance().crear(formuTmp);
+                    }
+                }
+            }
+
+    });
+
         app.routes(() -> {
 
             before(ctx -> {
@@ -76,7 +97,7 @@ public class mainController extends BaseControlador {
                     String nombre = ctx.formParam("nombre");
                     String apellido = ctx.formParam("apellidos");
                     String sector = ctx.formParam("sector");
-                    String nivelEscolar = ctx.formParam("nivelEscolar");
+                    String Nivel_escolar = ctx.formParam("Nivel_escolar");
                     String longitud = ctx.formParam("longitud");
                     String latitud = ctx.formParam("latitud");
 
@@ -85,7 +106,7 @@ public class mainController extends BaseControlador {
                     String auxUser = user.username;
                     System.out.println(auxUser);
 
-                    Formulario auxFormulario = new Formulario(nombre+apellido,sector,nivelEscolar,latitud,longitud,auxUser);
+                    Formulario auxFormulario = new Formulario(nombre+apellido,sector,Nivel_escolar,latitud,longitud,auxUser);
                    // serviciosFormularios.crear(auxFormulario);
 
                    ctx.redirect("/Principal/RegistrarPersona");
@@ -167,6 +188,65 @@ public class mainController extends BaseControlador {
 
                 });
 
+                app.ws("/mensajeServidor", ws -> {
+
+                    ws.onConnect(ctx -> {
+                        System.out.println("Conexión Iniciada - "+ctx.getSessionId());
+                        usuariosConectados.add(ctx.session);
+                    });
+        
+                    ws.onMessage(ctx -> {
+                        //Puedo leer los header, parametros entre otros.
+
+                        System.out.println("Llegó un msj");
+
+                        ctx.headerMap();
+                        ctx.pathParamMap();
+                        ctx.queryParamMap();
+                        boolean condicion = true;
+                        Form_JSON tempFormu = jacksonToObject(ctx.message());
+                        for(Form_JSON formu : formsRecibidos){
+                            if(tempFormu.getId_formulario() == formu.getId_formulario()){
+                                condicion = false;
+                            }
+                        }
+                        if(condicion){
+                            formsRecibidos.add(tempFormu);
+                        }
+        
+                        //
+                        System.out.println("Mensaje Recibido de "+ctx.getSessionId()+" ====== ");
+                        System.out.println("Mensaje: "+ ctx.message());
+                        System.out.println("================================");
+                        //
+                    });
+        
+                    ws.onBinaryMessage(ctx -> {
+                        System.out.println("Mensaje Recibido Binario "+ctx.getSessionId()+" ====== ");
+                        System.out.println("Mensaje: "+ctx.data().length);
+                        System.out.println("================================");
+                    });
+        
+                    ws.onClose(ctx -> {
+                        System.out.println("Conexión Cerrada - "+ctx.getSessionId());
+                        usuariosConectados.remove(ctx.session);
+                    });
+        
+                    ws.onError(ctx -> {
+                        System.out.println("Ocurrió un error en el WS");
+                    });
+                });
+
             });
+
+
         }
+
+        public static Form_JSON jacksonToObject(String jsonString)
+        throws IOException{
+         ObjectMapper mapper = new ObjectMapper();
+
+    return mapper.readValue(jsonString, Form_JSON.class);
+}
+
 }

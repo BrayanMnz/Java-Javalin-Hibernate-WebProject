@@ -355,7 +355,7 @@
 
     const db = new Dexie("Practica2_BrayanMnz");
     db.version(1).stores({
-       formulario: '++&id_Formulario, nombre, sector, nivelEscolar, latitud, longitud, usuario_form',
+       formulario: '++&id_formulario, nombre, sector, nivel_escolar, latitud, longitud, usuario_formulario',
        usuario: '++&id_Usuario, username, passwd_Usuario, role_Usuario',
     //    ghost:  '++id, esel'
 
@@ -378,10 +378,10 @@
          { 
                           nombre:  document.querySelector("#nombre").value +" "+document.querySelector("#apellidos").value,
                           sector: document.querySelector("#sector").value,
-                          nivelEscolar: document.querySelector("#nivelEscolar").value,
+                          nivel_escolar: document.querySelector("#nivelEscolar").value,
                           latitud: document.querySelector("#latitud").value,
                           longitud: document.querySelector("#longitud").value,
-                        usuario_form: document.querySelector("#usuario_form").value}).then (function(){
+                          usuario_formulario: document.querySelector("#usuario_form").value}).then (function(){
 
 
         return db.formulario.get(db.formulario.count() - 1);

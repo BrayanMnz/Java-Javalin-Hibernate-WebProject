@@ -127,7 +127,7 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
     </div>
     <div class="col-xs-6 text-right">   
         <div class="next">
-            <button class="btn btn-secondary btn-lg" onclick="imprimirTabla()">Enviar al Servidor  <span class="glyphicon glyphicon-floppy-open"></span></button>
+            <button class="btn btn-secondary btn-lg" id="btnServer" onclick="EnviarAlServer()">Enviar al Servidor  <span class="glyphicon glyphicon-floppy-open"></span></button>
 
           </button>
         </div>
@@ -179,7 +179,7 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
 
         const db = new Dexie("Practica2_BrayanMnz");
           db.version(1).stores({
-                        formulario: '++&id_Formulario, nombre, sector, nivelEscolar, latitud, longitud, usuario_form',
+                        formulario: '++&id_formulario, nombre, sector, nivel_escolar, latitud, longitud, usuario_formulario',
                         usuario: '++&id_Usuario, username, passwd_Usuario, role_Usuario',
 
 
@@ -221,7 +221,7 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
             for (var key in x) {
                 //
                 filaTabla = tabla.insertRow();
-                filaTabla.insertCell().textContent = ""+x[key].id_Formulario;
+                filaTabla.insertCell().textContent = ""+x[key].id_formulario;
                 filaTabla.insertCell().textContent = ""+x[key].nombre;  
                 filaTabla.insertCell().textContent = ""+x[key].sector;
                 filaTabla.insertCell().textContent = ""+x[key].nivelEscolar;
@@ -232,7 +232,7 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
                 <a class="nav-link btn btn-primary text-white"  onclick="verMapa()" type="button" href="#" data-toggle="modal" data-target="#myModal">Ver en Mapa</a>                  
            `;
 
-                filaTabla.insertCell().textContent = ""+x[key].usuario_form;
+                filaTabla.insertCell().textContent = ""+x[key].usuario_formulario;
                 filaTabla.insertCell().innerHTML =  `<button class="btn btn-info btn-sm " onclick="editar_form()"> <span class="glyphicon glyphicon-edit"></span></button> <span></span> <span><button class="btn btn-danger btn-sm " onclick="eliminar_form()"> <span class="glyphicon glyphicon-remove"></span></button></span>`;
             }
 
@@ -246,13 +246,13 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
       const id_Form = prompt("Indique Id del elemento a borrar: ");
           alert("Eliminar elemento con Id: "+id_Form);
 
-      let obj = x.find(o => o.id_Formulario === id_Form);
+      let obj = x.find(o => o.id_formulario === id_Form);
       let indx = x.indexOf(obj); 
 
       
     db.transaction('rw', db.formulario, function* () {
     var deleteCount = yield db.formulario
-        .where("id_Formulario").equals(parseInt(id_Form))
+        .where("id_formulario").equals(parseInt(id_Form))
         .delete();
 
         alert("Eliminados Correctamente: " + deleteCount + " Formularios");
@@ -272,7 +272,7 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
 
     var id_Form = parseInt(prompt("Indique Id del elemento a editar: "));
 
-    let obj = x.find(o => o.id_Formulario === id_Form);
+    let obj = x.find(o => o.id_formulario === id_Form);
     let indx = x.indexOf(obj); 
 
     var name = prompt("Editar Nombre:", x[indx].nombre);
@@ -302,7 +302,7 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
     function verMapa() {
 
       var id_Form = parseInt(prompt("Indique Id del elemento que desea ver en el Mapa: "));
-      let obj = x.find(o => o.id_Formulario === id_Form);
+      let obj = x.find(o => o.id_formulario === id_Form);
       let indx = x.indexOf(obj); 
 
       var latitud = x[indx].latitud;
@@ -311,15 +311,111 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
       document.getElementById("map").src = "https://maps.google.com/maps?q=" + latitud + ", " + longitud +
             "&z=15&output=embed";
 
-      
-
-      // console.log(longitud + latitud);
-
-      //  $("myModal").modal();
-      // alert("hola");
-      
     }
 
+
+
+
+
+
+
+        // W E B  S O C K E T 
+
+
+                var webSocket;
+                var tiempoReconectar = 5000;
+
+            function EnviarAlServer() {
+
+                console.log("Hola estoy en el socket");
+
+                
+
+            console.info("Iniciando Jquery -  Ejemplo WebServices");
+            conectar();
+                
+                if(!webSocket || webSocket.readyState == 3) {
+                    alert("Debe conectarse a internet, antes de sincronizar");
+                    conectar();
+                }else{
+
+                    // const x = [];
+
+                    const estudiantes =  db.formulario.toArray()
+                        .then(list => {
+                             list.forEach(item => {
+                                 alert(JSON.stringify(item));
+                                webSocket.send(JSON.stringify(item));
+                                  });
+                                           })
+                        .catch(error => {
+                          alert("Se encontró un error: "+error);
+                                        });
+                    // let data = dataBase.result.transaction(["formularios"]);
+                    // let formularios = data.objectStore("formularios");
+                    // formularios.openCursor().onsuccess = function (e) {
+                    //     //recuperando la posicion del cursor
+                    //     var cursor = e.target.result;
+                    //     if (cursor) {
+                    //         webSocket.send(JSON.stringify(cursor.value));
+                    //         cursor.continue();
+                    //     } else {
+                    //         console.log("No hay mas datos.");
+                    //     }
+                    // };
+                    alert("Datos sincronizados");
+                    dataBase.result.deleteObjectStore("formularios");
+            } 
+        }   
+
+        /**
+         *
+         * @param mensaje
+         */
+        function recibirInformacionServidor(mensaje){
+            console.log("Recibiendo del servidor: "+mensaje.data)
+            $("#mensajeServidor").append(mensaje.data);
+        }
+
+        function conectar() {
+            webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port + "/mensajeServidor");
+
+            //indicando los eventos:
+            webSocket.onmessage = function(data){recibirInformacionServidor(data);};
+            webSocket.onopen  = function(e){ console.log("Conectado - status "+this.readyState); };
+            webSocket.onclose = function(e){
+                console.log("Desconectado - status "+this.readyState);
+            };
+        }
+
+        // function conectar() {
+        //     webSocket = new WebSocket("wss://" + location.hostname + ":" + location.port + "/mensajeServidor");
+        //     var req = new XMLHttpRequest();
+        //     req.timeout = 5000;
+        //     req.open('GET', "https://" + location.hostname + ":" + location.port + "/Principal/ListarFormularios", true);
+        //     req.send();
+        //     //indicando los eventos:
+        //     webSocket.onmessage = function(data){recibirInformacionServidor(data);};
+        //     webSocket.onopen  = function(e){
+        //         var req = new XMLHttpRequest();
+        //         req.timeout = 5000;
+        //         req.open('GET', "https://" + location.hostname + ":" + location.port + "/Principal/ListarFormularios", true);
+        //         req.send();
+        //         console.log("Conectado - status "+this.readyState); };
+        //     webSocket.onclose = function(e){
+        //         console.log("Desconectado - status "+this.readyState);
+        //         var req = new XMLHttpRequest();
+        //         req.timeout = 5000;
+        //         req.open('GET', "https://" + location.hostname + ":" + location.port + "/Principal/ListarFormularios", true);
+        //         req.send();
+        //     };
+        // }
+        function verificarConexion(){
+            if(!webSocket || webSocket.readyState == 3){
+                conectar();
+            }
+        }
+        setInterval(verificarConexion, tiempoReconectar); //para reconectar.
 
 
 </script>

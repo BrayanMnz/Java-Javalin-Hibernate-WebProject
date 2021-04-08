@@ -1,6 +1,10 @@
 package Parcial2_Web.util;
 
 import Parcial2_Web.Classes.*;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
+import java.util.*;
 
 public class FormularioServicios extends GestionDb<Formulario>  {
     private static FormularioServicios instance;
@@ -16,6 +20,12 @@ public class FormularioServicios extends GestionDb<Formulario>  {
         return instance;
     }
 
-
+    public List<Formulario> findByNombre(String nombre) {
+        EntityManager em = getEntityManager();
+        Query query = em.createQuery("SELECT f FROM Formulario f where f.nombre = :nombre");
+        query.setParameter("nombre", nombre);
+        List<Formulario> lista = query.getResultList();
+        return lista;
+    }
     
 }
