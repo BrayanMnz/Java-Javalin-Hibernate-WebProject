@@ -2,6 +2,7 @@ package Parcial2_Web.Classes;
 
 import javax.persistence.*;
 import java.util.*;
+import Parcial2_Web.Classes.Formulario;
 
 @Entity
 public class Usuario {
@@ -20,9 +21,9 @@ public class Usuario {
     @Column
     public String rol_usuario; 
     
+    @OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL , orphanRemoval = true)
+    private List<Formulario> formularios = new ArrayList<Formulario>();
 
-    // @OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL , orphanRemoval = true)
-    // private List<Formulario> formularios_usuario = new ArrayList<Formulario>();
     
     
     public Usuario() {

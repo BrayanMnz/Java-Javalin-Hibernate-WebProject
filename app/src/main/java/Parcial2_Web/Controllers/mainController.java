@@ -39,12 +39,35 @@ public class mainController extends BaseControlador {
             
             });
 
+            before("/Principal/RegistrarPersona",ctx ->{
+                if(ctx.sessionAttribute("usuario") ==null) {
+                    ctx.redirect("/Principal/Login");
+                }
+            });
+
+            before("/Principal/CrearUsuario",ctx ->{
+                if(ctx.sessionAttribute("usuario") ==null) {
+                    ctx.redirect("/Principal/Login");
+                }
+            });
+
+
+            get("/Home", ctx -> {
+                ctx.render("/publico/Home.html");
+            });
+
+
             path("/Principal", () ->{
 
                 get("/RegistrarPersona", ctx -> {
                     Map<String, Object> modelo = new HashMap<>();
-                    ctx.render("/publico/Formulario.html",modelo);
 
+                    Usuario user = ctx.sessionAttribute("usuario");
+                    String auxUser = user.username;
+                    System.out.println(auxUser);
+                    modelo.put("usuario",auxUser);
+                    ctx.render("/publico/Formulario.html",modelo);
+                    
 
                 });
 
@@ -57,7 +80,12 @@ public class mainController extends BaseControlador {
                     String longitud = ctx.formParam("longitud");
                     String latitud = ctx.formParam("latitud");
 
-                    Formulario auxFormulario = new Formulario(nombre+apellido,sector,nivelEscolar,latitud,longitud);
+                    Usuario user = ctx.sessionAttribute("usuario");
+                    System.out.println(user);
+                    String auxUser = user.username;
+                    System.out.println(auxUser);
+
+                    Formulario auxFormulario = new Formulario(nombre+apellido,sector,nivelEscolar,latitud,longitud,auxUser);
                    // serviciosFormularios.crear(auxFormulario);
 
                    ctx.redirect("/Principal/RegistrarPersona");
@@ -80,6 +108,7 @@ public class mainController extends BaseControlador {
                     System.out.println(passwrd);   
 
                     if(serviciosUsuarios.verify_user(user,passwrd)){
+                        ctx.sessionAttribute("usuario",UsuarioServicios.getInstance().getUsuario(user));
                         ctx.redirect("/Principal/RegistrarPersona");
                         System.out.println("Ay si, essss el! ");  
                     } else {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -238,16 +238,7 @@
                                     <input id="sector" name="sector" type="text" class="form-control" placeholder="Sector  *" form="RegistrarPersona" />
                                 </div>
                                 <div class="form-group">
-                                    <div class="maxl">
-                                        <label class="radio inline"> 
-                                            <input type="radio" name="gender" value="male" checked>
-                                            <span> Masculino </span> 
-                                        </label>
-                                        <label class="radio inline"> 
-                                            <input type="radio" name="gender" value="female">
-                                            <span>Femenino</span> 
-                                        </label>
-                                    </div>
+                                    <input  name="usuario_form" id="usuario_form" type="text" class="form-control"  form="RegistrarPersona" th:value="${usuario}"readonly />
                                 </div>
 
                                
@@ -364,7 +355,7 @@
 
     const db = new Dexie("Practica2_BrayanMnz");
     db.version(1).stores({
-       formulario: '++&id_Formulario, nombre, sector, nivelEscolar, latitud, longitud',
+       formulario: '++&id_Formulario, nombre, sector, nivelEscolar, latitud, longitud, usuario_form',
        usuario: '++&id_Usuario, username, passwd_Usuario, role_Usuario',
     //    ghost:  '++id, esel'
 
@@ -389,7 +380,8 @@
                           sector: document.querySelector("#sector").value,
                           nivelEscolar: document.querySelector("#nivelEscolar").value,
                           latitud: document.querySelector("#latitud").value,
-                          longitud: document.querySelector("#longitud").value}).then (function(){
+                          longitud: document.querySelector("#longitud").value,
+                        usuario_form: document.querySelector("#usuario_form").value}).then (function(){
 
 
         return db.formulario.get(db.formulario.count() - 1);

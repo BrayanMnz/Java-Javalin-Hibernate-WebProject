@@ -27,8 +27,8 @@ public class App {
 
             DataBaseServices.getInstancia().testConn();
 
-            // Usuario tmp = new Usuario(0, "admin", "admin");
-            // UsuarioServicios.getInstance().crear(tmp);
+            Usuario tmp = new Usuario("admin", "admin", "Default Admin", "Administrador");
+            UsuarioServicios.getInstance().crear(tmp);
 
 
 
@@ -39,7 +39,7 @@ public class App {
 
             //creando el manejador
             System.out.println("\n\nServer started at Port:  7000\n\n");
-            app.get("/", ctx -> ctx.redirect("/Principal/Login"));
+            app.get("/", ctx -> ctx.redirect("/Home"));
     
     
             // new UsersController(app).aplicarRutas();

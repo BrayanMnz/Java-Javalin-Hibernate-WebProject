@@ -2,6 +2,7 @@ package Parcial2_Web.Classes;
 
 import javax.persistence.*;
 import java.util.*;
+import Parcial2_Web.Classes.Usuario;
 
 @Entity
 public class Formulario {
@@ -15,8 +16,8 @@ public class Formulario {
     public String sector;
     @Column
     public String nivel_escolar;
-    // @Column
-    // public Usuario usuario_formulario;
+    @Column
+    public String usuario_formulario;
     @Column
     public String latitud;
     @Column
@@ -28,12 +29,12 @@ public class Formulario {
     }
 
 
-    public Formulario( String nombre, String sector, String nivel_escolar, String latitud, String longitud) {
+    public Formulario( String nombre, String sector, String nivel_escolar, String latitud, String longitud, String usuario) {
         //this.id_formulario = id;
         this.nombre = nombre;
         this.sector = sector;
         this.nivel_escolar = nivel_escolar;
-        // this.usuario_formulario = usuario_formulario;
+        this.usuario_formulario = usuario;
         this.latitud = latitud;
         this.longitud = longitud;
     }
@@ -72,13 +73,14 @@ public class Formulario {
         this.nivel_escolar = nivel_escolar;
     }
 
-    // public Usuario getUsuario_formulario() {
-    //     return this.usuario_formulario;
-    // }
+  
+    public String getUsuario_formulario() {
+        return this.usuario_formulario;
+    }
 
-    // public void setUsuario_formulario(Usuario usuario_formulario) {
-    //     this.usuario_formulario = usuario_formulario;
-    // }
+    public void setUsuario_formulario(String usuario_formulario) {
+        this.usuario_formulario = usuario_formulario;
+    }
 
     public String getLatitud() {
         return this.latitud;

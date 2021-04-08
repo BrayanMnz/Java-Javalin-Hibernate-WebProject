@@ -179,7 +179,7 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
 
         const db = new Dexie("Practica2_BrayanMnz");
           db.version(1).stores({
-                        formulario: '++&id_Formulario, nombre, sector, nivelEscolar, latitud, longitud',
+                        formulario: '++&id_Formulario, nombre, sector, nivelEscolar, latitud, longitud, usuario_form',
                         usuario: '++&id_Usuario, username, passwd_Usuario, role_Usuario',
 
 
@@ -215,6 +215,7 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
             filaTabla.insertCell().textContent = "Sector";
             filaTabla.insertCell().textContent = "Nivel Escolar";
             filaTabla.insertCell().textContent = "Ubicación";
+            filaTabla.insertCell().textContent = "Registrado Por";
             filaTabla.insertCell().textContent = "Acción";
 
             for (var key in x) {
@@ -231,7 +232,7 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
                 <a class="nav-link btn btn-primary text-white"  onclick="verMapa()" type="button" href="#" data-toggle="modal" data-target="#myModal">Ver en Mapa</a>                  
            `;
 
-
+                filaTabla.insertCell().textContent = ""+x[key].usuario_form;
                 filaTabla.insertCell().innerHTML =  `<button class="btn btn-info btn-sm " onclick="editar_form()"> <span class="glyphicon glyphicon-edit"></span></button> <span></span> <span><button class="btn btn-danger btn-sm " onclick="eliminar_form()"> <span class="glyphicon glyphicon-remove"></span></button></span>`;
             }
 
