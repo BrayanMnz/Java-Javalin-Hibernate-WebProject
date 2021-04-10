@@ -196,10 +196,8 @@ public class mainController extends BaseControlador {
                     });
         
                     ws.onMessage(ctx -> {
-                        //Puedo leer los header, parametros entre otros.
 
                         System.out.println("Llegó un msj");
-
                         ctx.headerMap();
                         ctx.pathParamMap();
                         ctx.queryParamMap();
@@ -228,6 +226,7 @@ public class mainController extends BaseControlador {
                     });
         
                     ws.onClose(ctx -> {
+
                         System.out.println("Conexión Cerrada - "+ctx.getSessionId());
                         usuariosConectados.remove(ctx.session);
                     });
@@ -235,6 +234,31 @@ public class mainController extends BaseControlador {
                     ws.onError(ctx -> {
                         System.out.println("Ocurrió un error en el WS");
                     });
+                });
+
+                app.wsAfter("/mensajeServidor",ws -> {
+                    // runs after all WebSocket requests
+
+                    System.out.println("Insertando data en Base de Datos...");
+                    
+                    try {
+                        for (Form_JSON formu : formsRecibidos) {
+                            if (formu.getNombre() != null && formu.getSector() != null && formu.getNivel_escolar() != null) {
+                                Formulario formuTmp = new Formulario(formu.getNombre(), formu.getSector(), formu.getNivel_escolar(), formu.getLatitud(), formu.getLongitud(), formu.getUsuario_formulario());
+                                if (FormularioServicios.getInstance().findByNombre(formuTmp.getNombre()).isEmpty()) {
+                                    FormularioServicios.getInstance().crear(formuTmp);
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Ocurrió un error insertando la información en la Base de Datos.\n");
+                    }
+
+                    System.out.println("\n\n Data insertada en la base de datos correctamente! \n");
+                    
+
+
+
                 });
 
             });

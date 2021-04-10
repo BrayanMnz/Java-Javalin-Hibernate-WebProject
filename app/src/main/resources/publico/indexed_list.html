@@ -339,31 +339,19 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
                     conectar();
                 }else{
 
-                    // const x = [];
 
                     const estudiantes =  db.formulario.toArray()
                         .then(list => {
                              list.forEach(item => {
-                                 alert(JSON.stringify(item));
+                                
                                 webSocket.send(JSON.stringify(item));
                                   });
                                            })
                         .catch(error => {
                           alert("Se encontró un error: "+error);
                                         });
-                    // let data = dataBase.result.transaction(["formularios"]);
-                    // let formularios = data.objectStore("formularios");
-                    // formularios.openCursor().onsuccess = function (e) {
-                    //     //recuperando la posicion del cursor
-                    //     var cursor = e.target.result;
-                    //     if (cursor) {
-                    //         webSocket.send(JSON.stringify(cursor.value));
-                    //         cursor.continue();
-                    //     } else {
-                    //         console.log("No hay mas datos.");
-                    //     }
-                    // };
-                    alert("Datos sincronizados");
+                  
+                    alert("Se han enviado los datos al servidor! ");
                     dataBase.result.deleteObjectStore("formularios");
             } 
         }   
@@ -388,28 +376,7 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
             };
         }
 
-        // function conectar() {
-        //     webSocket = new WebSocket("wss://" + location.hostname + ":" + location.port + "/mensajeServidor");
-        //     var req = new XMLHttpRequest();
-        //     req.timeout = 5000;
-        //     req.open('GET', "https://" + location.hostname + ":" + location.port + "/Principal/ListarFormularios", true);
-        //     req.send();
-        //     //indicando los eventos:
-        //     webSocket.onmessage = function(data){recibirInformacionServidor(data);};
-        //     webSocket.onopen  = function(e){
-        //         var req = new XMLHttpRequest();
-        //         req.timeout = 5000;
-        //         req.open('GET', "https://" + location.hostname + ":" + location.port + "/Principal/ListarFormularios", true);
-        //         req.send();
-        //         console.log("Conectado - status "+this.readyState); };
-        //     webSocket.onclose = function(e){
-        //         console.log("Desconectado - status "+this.readyState);
-        //         var req = new XMLHttpRequest();
-        //         req.timeout = 5000;
-        //         req.open('GET', "https://" + location.hostname + ":" + location.port + "/Principal/ListarFormularios", true);
-        //         req.send();
-        //     };
-        // }
+        
         function verificarConexion(){
             if(!webSocket || webSocket.readyState == 3){
                 conectar();
