@@ -37,6 +37,11 @@ public class App {
             conf.addStaticFiles("/publico"); //desde la carpeta de resources
             }).start(7000);
 
+            app.after(ctx -> {
+                //System.out.println("Enviando el header de seguridad para el Service Worker");
+                ctx.header("Service-Worker-Allowed", "/");
+            });
+
             //creando el manejador
             System.out.println("\n\nServer started at Port:  7000\n\n");
             app.get("/", ctx -> ctx.redirect("/Home"));

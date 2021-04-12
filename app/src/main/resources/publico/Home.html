@@ -228,5 +228,19 @@ body {
           </div>
       </div>
       </div>
+
+
+      <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/serviceworkers.js', {scope: '/'}).then(function(registration) {
+                    // Notificando el registro del service workwe
+                    console.log('Registrando el servicio en el ambiente: ', registration.scope);
+                }, function(err) {
+                    console.log('Service Worker falló el registro: ', err);
+                });
+            });
+        }
+    </script>
 </body>
 </html>

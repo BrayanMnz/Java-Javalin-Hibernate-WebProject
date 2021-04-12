@@ -224,7 +224,7 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
                 filaTabla.insertCell().textContent = ""+x[key].id_formulario;
                 filaTabla.insertCell().textContent = ""+x[key].nombre;  
                 filaTabla.insertCell().textContent = ""+x[key].sector;
-                filaTabla.insertCell().textContent = ""+x[key].nivelEscolar;
+                filaTabla.insertCell().textContent = ""+x[key].nivel_escolar;
                 // filaTabla.insertCell().innerHTML = `<id="hola" button class="btn btn-info btn-sm" onclick="verMapa()"> <span class="glyphicon glyphicon-edit"></span></button> `;
 
 
@@ -277,11 +277,11 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
 
     var name = prompt("Editar Nombre:", x[indx].nombre);
     var sect = prompt("Editar Sector:", x[indx].sector);
-    var NvlEscolar = prompt("Editar Nivel Escolar:", x[indx].nivelEscolar);
+    var NvlEscolar = prompt("Editar Nivel Escolar:", x[indx].nivel_escolar);
 
     x[indx].nombre = name;
     x[indx].sector = sect;
-    x[indx].nivelEscolar = NvlEscolar;
+    x[indx].nivel_escolar = NvlEscolar;
     
 
     db.formulario.update(id_Form, 

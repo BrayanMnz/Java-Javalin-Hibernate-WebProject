@@ -241,7 +241,7 @@
                                     <input  name="usuario_form" id="usuario_form" type="text" class="form-control"  form="RegistrarPersona" th:value="${usuario}"readonly />
                                 </div>
 
-                               
+                                <input  name="usuario_WebStorage" id="usuario_WebStorage" type="hidden" class="form-control"  form="RegistrarPersona" th:value="${usuario}"/>
                             </div>
                             <div class="col-md-6">
 
@@ -401,6 +401,30 @@
     }
     
 </script>
+
+<script>
+    $(document).ready(Usuario_AlWebStorage());
+
+    function Usuario_AlWebStorage() {
+
+    
+    var usuario = localStorage.getItem("usuario");
+         if(usuario == null) {
+             var tmp = document.querySelector("#usuario_WebStorage").value;
+           
+             localStorage.setItem("usuario", tmp); //Siempre guarda
+             usuario = tmp;
+         }
+
+        document.querySelector("#usuario_form").value = localStorage.getItem("usuario");
+        //  //Almacenando información en el ambiente de sesión.
+        //  sessionStorage.setItem("fechaAcceso", new Date().toUTCString());
+
+         //Mostrando.
+        //  document.getElementById("primeraVez").innerText ="La primera vez accedido: "+usuario;
+        //  document.getElementById("ultimaVez").innerText ="La última  vez accedido: "+sessionStorage.getItem("fechaAcceso");
+        }
+  </script>
 
 
 

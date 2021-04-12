@@ -60,6 +60,8 @@ public class mainController extends BaseControlador {
             
             });
 
+            
+
             before("/Principal/RegistrarPersona",ctx ->{
                 if(ctx.sessionAttribute("usuario") ==null) {
                     ctx.redirect("/Principal/Login");
