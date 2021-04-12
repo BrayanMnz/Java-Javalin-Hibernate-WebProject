@@ -3,12 +3,12 @@
  */
 
 //Cache activo.
-var CACHE_NAME = 'mi-app-cache-v1';
+var CACHE_NAME = 'Parcial2_BrayanMnz_Cache';
 //listado de
 var urlsToCache = [
     '/Formulario.html',
     '/indexed_list.html',
-    '/offline.html'
+    // '/offline.html'
 
 ];
 //ruta para fallback.
