@@ -49,6 +49,7 @@ public class App {
     
             // new UsersController(app).aplicarRutas();
             new mainController(app).aplicarRutas();
+            new RestApi(app).aplicarRutas();
             
     }
 

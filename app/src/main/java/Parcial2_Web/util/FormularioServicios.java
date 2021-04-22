@@ -27,5 +27,13 @@ public class FormularioServicios extends GestionDb<Formulario>  {
         List<Formulario> lista = query.getResultList();
         return lista;
     }
+
+    public List<Formulario> findByUsuario(String usuario) {
+        EntityManager em = getEntityManager();
+        Query query = em.createQuery("SELECT f FROM Formulario f where f.usuario_formulario = :usuario");
+        query.setParameter("usuario", usuario);
+        List<Formulario> lista = query.getResultList();
+        return lista;
+    }
     
 }
