@@ -10,6 +10,8 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+    <!-- WEB CAM SCRIPT -->
+    <script type="text/javascript" src="../publico/webcam-easy.js"></script>
 
 
 <style> 
@@ -138,7 +140,37 @@
     }
        
 </style>
+    <!-- WEB CAM SCRIPT -->
+    <script type="text/javascript" src="../publico/webcam-easy.min.js"></script>
 
+    <script>
+
+        var picture;
+
+        function camStart(webcam) {
+            webcam.start()
+                .then(result =>{
+                    console.log("webcam started");
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+
+        function camStop(webcam) {
+            webcam.stop();
+        }
+
+        function camSnap(webcam) {
+            picture = webcam.snap();
+        }
+
+        function getPicture() {
+            return picture;
+        }
+
+
+    </script>
 
 
 <!------ Para el Navbar---------->
@@ -234,18 +266,40 @@
                                 <div class="form-group">
                                     
                                 </div>
+                                <!--
                                 <div class="form-group">
                                     <input id="sector" name="sector" type="text" class="form-control" placeholder="Sector  *" form="RegistrarPersona" />
+                                </div>-->
+                                <div class="form-group" >
+                                    <select id="sector" name="sector" class="form-control" form="RegistrarPersona">
+                                        <option class="hidden"  selected disabled>Seleccione Sector</option>
+                                        <option>Duarte</option>
+                                        <option>Dajabón</option>
+                                        <option>Espaillat</option>
+                                        <option>La Vega</option>
+                                        <option>María Trinidad Sánchez </option>
+                                        <option>Monseñor Nouel </option>
+                                        <option>Montecristi </option>
+                                        <option>Puerto Plata </option>
+                                        <option>Salcedo </option>
+                                        <option>Samaná </option>
+                                        <option>Sánchez Ramírez </option>
+                                        <option>Santiago de los Caballeros </option>
+                                        <option>Santiago Rodríguez </option>
+                                        <option>Valverde</option>
+                                    </select>
                                 </div>
+
+
                                 <div class="form-group">
                                     <input  name="usuario_form" id="usuario_form" type="text" class="form-control"  form="RegistrarPersona" th:value="${usuario}"readonly />
                                 </div>
 
                                 <input  name="usuario_WebStorage" id="usuario_WebStorage" type="hidden" class="form-control"  form="RegistrarPersona" th:value="${usuario}"/>
                             </div>
-                            <div class="col-md-6">
 
-                               
+
+                            <div class="col-md-6">
 
                                 <div class="form-group" >
                                     <select id="nivelEscolar" name="nivelEscolar" class="form-control" form="RegistrarPersona">
@@ -265,7 +319,43 @@
                                 <div class="form-group">
                                     <input  name="longitud" id="longitud"  type="text" class="form-control" placeholder="Longitud  " form="RegistrarPersona" readonly/>
                                 </div>
-                                <button id="btnRegistrar" class="btnRegister" onclick="regFormulario()" >Registrar</button>  
+                                <div class="form-row" style="border: solid 1px; padding: 10px;">
+
+                                    <div class="nav-title">
+                                        <h4><strong>Vista previa</strong></h4>
+                                    </div>
+
+                                    <div class="div_todo">
+                                        <div class="div_preview">
+                                            <video style="alignment: left;" id="webcam" autoplay playsinline width="320" height="240"></video>
+                                        </div>
+
+                                        <div class="botones ">
+                                            <button class="btn btn--radius-2 btn--red" id="camSnap">Snap</button>
+                                            <button class="btn btn--radius-2 btn--red" id="camStart">ON</button>
+                                            <button class="btn btn--radius-2 btn--red" id="camStop">OFF</button>
+                                        </div>
+                                    </div>
+                                    <h4><strong>Foto Adjunta:</strong></h4>
+                                    <div class="foto-adjunta" >
+
+                                        <br>
+                                        <canvas id="canvas" class="form-row"></canvas>
+                                    </div>
+                                    <audio id="snapSound" src="../publico/snap.wav" preload = "auto"></audio>
+
+                                </div>
+
+
+                                <div class="btn-div">
+                                    <button class="btn btn--radius-2 btn--red" id="submit">Enviar</button>
+                                </div>
+                                <!-- --> </form>
+                    </div>
+                    </div>
+                    <br>
+
+                                <button id="btnRegistrar" class="btnRegister" onclick="regFormulario()" >Registrar</button>
                             </form>
 
                             </div>
@@ -273,7 +363,7 @@
                     </div>
 
                             </div>
-                        
+
                         </div>
                     </div>
                 </div>
@@ -340,6 +430,24 @@
                 document.querySelector("#longitud").value = "Error al obtener la ubicación. Codigo: "+error.code+", mensaje: "+error.message;
             });
         }
+        var webcamElement = document.getElementById('webcam');
+        var canvasElement = document.getElementById('canvas');
+        var snapSoundElement = document.getElementById('snapSound');
+        var webcam = new Webcam(webcamElement, 'enviroment', canvasElement, snapSoundElement);
+        console.log("webcam created");
+
+        $("#camStart").click(function(){
+            camStart(webcam);
+        });
+
+        $("#camStop").click(function(){
+            camStop(webcam);
+        });
+
+        $("#camSnap").click(function(){
+            camSnap(webcam, canvas);
+        });
+
 
             </script>
 
