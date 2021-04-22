@@ -87,7 +87,6 @@ public class mainController extends BaseControlador {
 
                     Usuario user = ctx.sessionAttribute("usuario");
                     String auxUser = user.username;
-                    System.out.println(auxUser);
                     modelo.put("usuario",auxUser);
                     ctx.render("/publico/Formulario.html",modelo);
                     
@@ -127,13 +126,12 @@ public class mainController extends BaseControlador {
                     String user = ctx.formParam("username");
                     String passwrd = ctx.formParam("password");
 
-                    System.out.println(user);
-                    System.out.println(passwrd);   
+                   
 
                     if(serviciosUsuarios.verify_user(user,passwrd)){
                         ctx.sessionAttribute("usuario",UsuarioServicios.getInstance().getUsuario(user));
                         ctx.redirect("/Principal/RegistrarPersona");
-                        System.out.println("Ay si, essss el! ");  
+                       
                     } else {
                         
                         System.out.println("USUARIO NO EXISTEE!");
@@ -218,6 +216,17 @@ public class mainController extends BaseControlador {
                         System.out.println("Mensaje Recibido de "+ctx.getSessionId()+" ====== ");
                         System.out.println("Mensaje: "+ ctx.message());
                         System.out.println("================================");
+
+
+
+                        for (Form_JSON formu : formsRecibidos) {
+                            if (formu.getNombre() != null && formu.getSector() != null && formu.getNivel_escolar() != null) {
+                                Formulario formuTmp = new Formulario(formu.getNombre(), formu.getSector(), formu.getNivel_escolar(), formu.getLatitud(), formu.getLongitud(), formu.getUsuario_formulario());
+                                if (FormularioServicios.getInstance().findByNombre(formuTmp.getNombre()).isEmpty()) {
+                                    FormularioServicios.getInstance().crear(formuTmp);
+                                }
+                            }
+                        }
                         //
                     });
         

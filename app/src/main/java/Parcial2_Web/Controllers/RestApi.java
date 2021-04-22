@@ -40,6 +40,7 @@ public class RestApi extends BaseControlador {
                         //parseando la informacion del POJO debe venir en formato json.
                         Formulario tmp = ctx.bodyAsClass(Formulario.class);
                         //creando.
+                        System.out.println(tmp.getNombre());
                         ctx.json(serviciosFormularios.crear(tmp));
                     });
 
