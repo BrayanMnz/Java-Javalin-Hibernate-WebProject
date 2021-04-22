@@ -57,9 +57,6 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
 
 <body style="background: -webkit-linear-gradient(left, #3931af, #00c6ff);">
     
-<script> 
-document.onload(imprimirTabla());
-</script>
 
     	                <!-- Navigation Bar  -->
                     
@@ -372,7 +369,7 @@ document.onload(imprimirTabla());
         }
 
         function conectar() {
-            webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port + "/mensajeServidor");
+            webSocket = new WebSocket("wss://" + location.hostname + ":" + location.port + "/mensajeServidor");
 
             //indicando los eventos:
             webSocket.onmessage = function(data){recibirInformacionServidor(data);};
