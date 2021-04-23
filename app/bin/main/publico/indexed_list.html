@@ -330,18 +330,18 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
 
             function EnviarAlServer() {
 
-                console.log("Hola estoy en el socket");
-
-                
-
-            console.info("Iniciando Jquery -  Ejemplo WebServices");
-            conectar();
+                try {
+                    conectar(); 
+                } catch (error) {
+                    console.log("Error conectando al Web Socket "+error);
+                    
+                }
+          
                 
                 if(!webSocket || webSocket.readyState == 3) {
-                    alert("Debe conectarse a internet, antes de sincronizar");
+                    alert("No tiene conexion con el servidor!");
                     conectar();
                 }else{
-
 
                     const estudiantes =  db.formulario.toArray()
                         .then(list => {
@@ -355,7 +355,7 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
                                         });
                   
                     alert("Se han enviado los datos al servidor! ");
-                    dataBase.result.deleteObjectStore("formularios");
+                    // dataBase.result.deleteObjectStore("formularios");
             } 
         }   
 
@@ -369,7 +369,7 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
         }
 
         function conectar() {
-            webSocket = new WebSocket("wss://" + location.hostname + ":" + location.port + "/mensajeServidor");
+            webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port + "/mensajeServidor");
 
             //indicando los eventos:
             webSocket.onmessage = function(data){recibirInformacionServidor(data);};
