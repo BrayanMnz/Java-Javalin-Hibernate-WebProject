@@ -39,7 +39,7 @@ public class App {
             conf.addStaticFiles("/publico"); //desde la carpeta de resources
             });
 
-            new SoapControlador(app).aplicarRutas();
+//            new SoapControlador(app).aplicarRutas();
 
             app.start(7000);
 
