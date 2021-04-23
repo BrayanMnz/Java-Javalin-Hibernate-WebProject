@@ -341,7 +341,7 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
                 if(!webSocket || webSocket.readyState == 3) {
                     alert("No tiene conexion con el servidor!");
                     conectar();
-                }else{
+                }else if (webSocket.readyState == 1){
 
                     const estudiantes =  db.formulario.toArray()
                         .then(list => {
