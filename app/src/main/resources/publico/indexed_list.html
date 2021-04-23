@@ -369,7 +369,7 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
         }
 
         function conectar() {
-            webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port + "/mensajeServidor");
+            webSocket = new WebSocket("wss://" + location.hostname + ":" + location.port + "/mensajeServidor");
 
             //indicando los eventos:
             webSocket.onmessage = function(data){recibirInformacionServidor(data);};
