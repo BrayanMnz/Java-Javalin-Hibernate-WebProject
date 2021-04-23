@@ -6,7 +6,7 @@ import Parcial2_Web.Classes.Usuario;
 
 @Entity
 public class Formulario {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Se genera el ID automatico
     public int id_formulario;
@@ -24,7 +24,7 @@ public class Formulario {
     public String longitud;
 
 
-    
+
     public Formulario() {
     }
 
@@ -73,7 +73,7 @@ public class Formulario {
         this.nivel_escolar = nivel_escolar;
     }
 
-  
+
     public String getUsuario_formulario() {
         return this.usuario_formulario;
     }
@@ -100,4 +100,3 @@ public class Formulario {
 
 
 }
-
