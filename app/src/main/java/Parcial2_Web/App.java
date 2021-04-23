@@ -15,7 +15,9 @@ public class App {
     private static String modoConexion = "";
     public static void main(String[] args) throws SQLException{
 
-
+  //El contexto SOAP debe estar creando antes de inicio del servidor.
+ 
+            
         if(args.length >= 1){
             modoConexion = args[0];
             System.out.println("Modo de Operacion: "+modoConexion);
@@ -35,7 +37,11 @@ public class App {
            //Creando la instancia del servidor.
            Javalin app = Javalin.create(conf ->{
             conf.addStaticFiles("/publico"); //desde la carpeta de resources
-            }).start(7000);
+            });
+
+//            new SoapControlador(app).aplicarRutas();
+
+            app.start(7000);
 
             app.after(ctx -> {
                 //System.out.println("Enviando el header de seguridad para el Service Worker");
@@ -49,7 +55,8 @@ public class App {
     
             // new UsersController(app).aplicarRutas();
             new mainController(app).aplicarRutas();
-            
+            new RestApi(app).aplicarRutas();
+           
     }
 
     public static String getModoConexion(){
