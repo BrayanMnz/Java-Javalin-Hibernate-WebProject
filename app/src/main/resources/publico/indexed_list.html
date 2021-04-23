@@ -330,12 +330,8 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
 
             function EnviarAlServer() {
 
-                console.log("Hola estoy en el socket");
-
-                
-
-            console.info("Iniciando Jquery -  Ejemplo WebServices");
-            conectar();
+    
+            conectar(); 
                 
                 if(!webSocket || webSocket.readyState == 3) {
                     alert("Debe conectarse a internet, antes de sincronizar");
@@ -355,7 +351,7 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
                                         });
                   
                     alert("Se han enviado los datos al servidor! ");
-                    dataBase.result.deleteObjectStore("formularios");
+                    // dataBase.result.deleteObjectStore("formularios");
             } 
         }   
 
