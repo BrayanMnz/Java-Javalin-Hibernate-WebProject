@@ -343,7 +343,16 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
                     conectar();
                 }else{
 
-                  
+                    const estudiantes =  db.formulario.toArray()
+                        .then(list => {
+                             list.forEach(item => {
+                                
+                                webSocket.send(JSON.stringify(item));
+                                  });
+                                           })
+                        .catch(error => {
+                          alert("Se encontró un error: "+error);
+                                        });
                   
                     alert("Se han enviado los datos al servidor! ");
                     // dataBase.result.deleteObjectStore("formularios");
@@ -360,24 +369,11 @@ background: linear-gradient(130deg, dimgray,  rgba(1,1,1,1) 93%, dimgray 65%, rg
         }
 
         function conectar() {
-            webSocket = new WebSocket("wss://parcial2.brayanmnz.live/mensajeServidor");
+            webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port + "/mensajeServidor");
 
             //indicando los eventos:
             webSocket.onmessage = function(data){recibirInformacionServidor(data);};
-            webSocket.onopen  = function(e){
-                
-                const estudiantes =  db.formulario.toArray()
-                        .then(list => {
-                             list.forEach(item => {
-                                
-                                webSocket.send(JSON.stringify(item));
-                                  });
-                                           })
-                        .catch(error => {
-                          alert("Se encontró un error: "+error);
-                                        });
-                
-                console.log("Conectado - status "+this.readyState); };
+            webSocket.onopen  = function(e){ console.log("Conectado - status "+this.readyState); };
             webSocket.onclose = function(e){
                 console.log("Desconectado - status "+this.readyState);
             };
