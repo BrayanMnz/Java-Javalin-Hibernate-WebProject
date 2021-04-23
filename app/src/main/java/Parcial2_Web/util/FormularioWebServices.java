@@ -26,10 +26,14 @@ public class FormularioWebServices {
         return "Hola Mundo "+hola+", :-D";
     }
 
-    // @WebMethod
-    // public List<Formulario> getListaFormularios(){
-    //     return serviciosFormularios.findAll();
-    // }
+    @WebMethod
+    public ArrayList<Formulario> getListaFormularios(String nombre){
+        return (ArrayList<Formulario>) serviciosFormularios.findByNombre(nombre);
+    }
 
+    // @WebMethod
+    // public Formulario crearFormulario(Formulario Formulario){
+    //     return serviciosFormularios.crear(Formulario);
+    // }
 
 }
