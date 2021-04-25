@@ -24,6 +24,7 @@ public class Foto implements Serializable {
         this.nombre = nombre;
         this.tipo = tipo;
         this.fotoBase64 = fotoBase64;
+
     }
     public Foto() {
 

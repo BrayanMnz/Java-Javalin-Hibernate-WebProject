@@ -1,11 +1,12 @@
 package Parcial2_Web.Classes;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.*;
 import Parcial2_Web.Classes.Usuario;
 
 @Entity
-public class Formulario {
+public class Formulario  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Se genera el ID automatico
@@ -22,23 +23,28 @@ public class Formulario {
     public String latitud;
     @Column
     public String longitud;
+    @Column
+    public Foto foto;
+   
 
 
-
-    public Formulario() {
+    public Formulario(String nombre, String sector, String nivel_escolar, String latitud, String longitud, String usuario_formulario) {
     }
 
-
-    public Formulario( String nombre, String sector, String nivel_escolar, String latitud, String longitud, String usuario) {
-        //this.id_formulario = id;
+    public Formulario(int id_formulario, String nombre, String sector, String nivel_escolar, String usuario_formulario, String latitud, String longitud, Foto foto) {
+       // this.id_formulario = id_formulario;
         this.nombre = nombre;
         this.sector = sector;
         this.nivel_escolar = nivel_escolar;
-        this.usuario_formulario = usuario;
+        this.usuario_formulario = usuario_formulario;
         this.latitud = latitud;
         this.longitud = longitud;
+        this.foto = foto;
     }
 
+    public Formulario() {
+        
+    }
 
 
     public int getId_formulario() {
@@ -98,5 +104,11 @@ public class Formulario {
         this.longitud = longitud;
     }
 
+    public Foto getFoto() {
+        return foto;
+    }
 
+    public void setFoto(Foto foto) {
+        this.foto = foto;
+    }
 }
