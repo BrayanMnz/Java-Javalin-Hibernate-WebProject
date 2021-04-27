@@ -22,6 +22,8 @@ public class Formulario {
     public String latitud;
     @Column
     public String longitud;
+    @Column
+    public Foto foto;
 
 
     
@@ -39,6 +41,16 @@ public class Formulario {
         this.longitud = longitud;
     }
 
+    public Formulario(int id_formulario, String nombre, String sector, String nivel_escolar, String usuario_formulario, String latitud, String longitud, Foto foto) {
+        // this.id_formulario = id_formulario;
+         this.nombre = nombre;
+         this.sector = sector;
+         this.nivel_escolar = nivel_escolar;
+         this.usuario_formulario = usuario_formulario;
+         this.latitud = latitud;
+         this.longitud = longitud;
+         this.foto = foto;
+     }
 
 
     public int getId_formulario() {
@@ -98,6 +110,13 @@ public class Formulario {
         this.longitud = longitud;
     }
 
+    public Foto getFoto() {
+        return foto;
+    }
+
+    public void setFoto(Foto foto) {
+        this.foto = foto;
+    }
 
 }
 

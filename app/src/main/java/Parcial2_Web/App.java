@@ -8,6 +8,7 @@ import Parcial2_Web.Classes.*;
 import Parcial2_Web.Controllers.*;
 import io.javalin.Javalin;
 import io.javalin.core.util.RouteOverviewPlugin;
+import io.javalin.http.staticfiles.Location;
 
 
 public class App {
@@ -36,7 +37,7 @@ public class App {
 
            //Creando la instancia del servidor.
            Javalin app = Javalin.create(conf ->{
-            conf.addStaticFiles("/publico"); //desde la carpeta de resources
+            conf.addStaticFiles("src/main/resources/publico", Location.EXTERNAL); //desde la carpeta de resources
             });
 
 //            new SoapControlador(app).aplicarRutas();
