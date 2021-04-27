@@ -322,7 +322,7 @@
             <input  class="btn btn&#45;&#45;radius-2 btn&#45;&#45;red" type="button" style="margin-left: 2rem"onclick="camStart(webcam)" value="ON">
             <input  class="btn btn&#45;&#45;radius-2 btn&#45;&#45;red" type="button" style="margin-left: 2rem"onclick="camSnap(webcam)" value="SNAP">
             <input  class="btn btn&#45;&#45;radius-2 btn&#45;&#45;red" type="button" style="margin-left: 2rem"onclick="camStop(webcam)" value="OFF">
-            <!--                                        <button onclick="webcam.start()">Mmmh</button>>-->
+         
         </div>
     </div>
     <h4><strong>Foto Adjunta:</strong></h4>
@@ -463,7 +463,7 @@
 
     const db = new Dexie("Practica2_BrayanMnz");
     db.version(1).stores({
-        formulario: '++&id_formulario, nombre, sector, nivel_escolar, latitud, longitud, usuario_formulario',
+        formulario: '++&id_formulario, nombre, sector, nivel_escolar, latitud, longitud, usuario_formulario, mimeType, fotoBase64',
         usuario: '++&id_Usuario, username, passwd_Usuario, role_Usuario',
         //    ghost:  '++id, esel'
 
@@ -489,7 +489,10 @@
                 nivel_escolar: document.querySelector("#nivelEscolar").value,
                 latitud: document.querySelector("#latitud").value,
                 longitud: document.querySelector("#longitud").value,
-                usuario_formulario: document.querySelector("#usuario_form").value}).then (function(){
+                usuario_formulario: document.querySelector("#usuario_form").value,
+                mimeType: "image/jpeg",
+                fotoBase64: getPicture()
+            }).then (function(){
 
 
             return db.formulario.get(db.formulario.count() - 1);

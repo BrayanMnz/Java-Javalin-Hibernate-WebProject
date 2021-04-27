@@ -6,6 +6,8 @@
     <persistence-unit name="BrayanMnz_Parcial2" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>Parcial2_Web.Classes.Usuario</class>
+        <class>Parcial2_Web.Classes.Formulario</class>
+        <class>Parcial2_Web.Classes.Foto</class>
         <properties>
             <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test" />-->
             <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/BrayanMnz_Parcial2" />
