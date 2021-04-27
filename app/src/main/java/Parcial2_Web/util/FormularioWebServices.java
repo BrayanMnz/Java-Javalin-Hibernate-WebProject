@@ -27,8 +27,8 @@ public class FormularioWebServices {
     }
 
     @WebMethod
-    public ArrayList<Formulario> getListaFormularios(String nombre){
-        return (ArrayList<Formulario>) serviciosFormularios.findByNombre(nombre);
+    public List<Formulario> getListaFormularios(){
+        return  serviciosFormularios.findAll();
     }
 
     // @WebMethod
