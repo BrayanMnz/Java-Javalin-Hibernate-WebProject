@@ -323,51 +323,6 @@
             </body>
 
 
-
-
-
-
-
-        
-        <script type="text/javascript" src="/webcam-easy.js"></script>
-
-        <script>
-        
-            var picture;
-        
-            const webcamElement = document.getElementById('webcam');
-            const canvasElement = document.getElementById('canvas');
-            const snapSoundElement = document.getElementById('snapSound');
-            const webcam = new Webcam(webcamElement, 'user', canvasElement, snapSoundElement);
-        
-            function camStart(webcam) {
-                webcam.start()
-                    .then(result =>{
-                        console.log("webcam started");
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
-            }
-        
-            function camStop(webcam) {
-                webcam.stop();
-            }
-        
-            function camSnap(webcam) {
-                picture = webcam.snap();
-            }
-        
-            function getPicture() {
-                return picture;
-            }
-        
-        
-        
-        
-        </script>
-
-
      <!-- Script para obtener ubicación.   -->   
 
             <script> 
