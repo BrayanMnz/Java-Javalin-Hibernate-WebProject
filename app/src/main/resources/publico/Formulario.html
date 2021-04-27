@@ -265,6 +265,11 @@
                                 <div class="form-group">
                                     <input  name="longitud" id="longitud"  type="text" class="form-control" placeholder="Longitud  " form="RegistrarPersona" readonly/>
                                 </div>
+
+                                <div class="form-group">
+                                    <a class='nav-link btn btn-primary text-white'  onclick='verMapa()' type='button' href='#' data-toggle='modal' data-target='#modalFoto'>Realizar Fotografia</a>
+                                </div>
+
                                 <button id="btnRegistrar" class="btnRegister" onclick="regFormulario()" >Registrar</button>  
                             </form>
 
@@ -282,7 +287,100 @@
 
 
 
+                      <!-- Modal -->
+                      <div class="modal" id="modalFoto">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                  
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Realizar Fotografia</h4>
+                                    <button type="button" class="close" data-dismiss="modal">×</button>
+                                </div>
+                  
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                 
+                                    <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
 
+                                    <video id="webcam" autoplay playsinline style="max-width: 100%; height: auto;"></video>
+                                    <canvas id="canvas" class="d-none"></canvas>
+                                    <audio id="snapSound" src="/snap.wav" preload = "auto"></audio>
+                                    
+                                    <script>
+                                        const webcamElement = document.getElementById('webcam');
+                                        const canvasElement = document.getElementById('canvas');
+                                        const snapSoundElement = document.getElementById('snapSound');
+                                        const webcam = new Webcam(webcamElement, 'user', canvasElement, snapSoundElement);
+                                
+                                
+                                        webcam.start()
+                                   .then(result =>{
+                                      console.log("webcam started");
+                                   })
+                                   .catch(err => {
+                                       console.log(err);
+                                   });
+                                
+                                    </script>
+                                <!-- <button type="button" onclick="Foto()">Realizar Foto</button> -->
+                                <a class='nav-link btn btn-primary text-white'  onclick='Foto()' type='button' href='#' data-toggle='modal' data-target='#modalFotoMostrar' data-dismiss="modal">Realizar Fotografia</a>
+                                
+                                <script>
+                                    function Foto() {
+                                        let picture = webcam.snap();
+                                        document.querySelector("#VisualizarFoto").src=""+picture;
+                                        console.log(picture);
+                                        
+                                            }
+                                </script>
+                                
+                                
+
+                                </div>
+                  
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                </div>
+                  
+                            </div>
+                        </div>
+                    </div>
+                  
+
+
+           <!-- Modal mostrar imagen        -->
+
+<!-- Modal -->
+<div class="modal" id="modalFotoMostrar">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Fotografia del Registro</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+             
+                <img id="VisualizarFoto" src="">
+            
+
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal mostrar imagen  -->
 
 
 
