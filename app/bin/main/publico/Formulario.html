@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro Personas</title>
+
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+    <style>
+        .register{
+            background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+            margin-top: 3%;
+            padding: 3%;
+        }
+        .register-left{
+            text-align: center;
+            color: #fff;
+            margin-top: 4%;
+        }
+        .register-left input{
+            border: none;
+            border-radius: 1.5rem;
+            padding: 2%;
+            width: 60%;
+            background: #f8f9fa;
+            font-weight: bold;
+            color: #383d41;
+            margin-top: 30%;
+            margin-bottom: 3%;
+            cursor: pointer;
+        }
+        .register-right{
+            background: #f8f9fa;
+            border-top-left-radius: 10% 50%;
+            border-bottom-left-radius: 10% 50%;
+        }
+        .register-left img{
+            margin-top: 15%;
+            margin-bottom: 5%;
+            width: 25%;
+            -webkit-animation: mover 2s infinite  alternate;
+            animation: mover 1s infinite  alternate;
+        }
+        /* @-webkit-keyframes mover {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-20px); }
+        }
+        @keyframes mover {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-20px); }
+        } */
+        .register-left p{
+            font-weight: lighter;
+            padding: 12%;
+            margin-top: -9%;
+        }
+        .register .register-form{
+            padding: 10%;
+            margin-top: 10%;
+        }
+        .btnRegister{
+            float: right;
+            margin-top: 10%;
+            border: none;
+            border-radius: 1.5rem;
+            padding: 2%;
+            background: #0062cc;
+            color: #fff;
+            font-weight: 600;
+            width: 50%;
+            cursor: pointer;
+        }
+        .register .nav-tabs{
+            margin-top: 3%;
+            border: none;
+            background: #0062cc;
+            border-radius: 1.5rem;
+            width: 28%;
+            float: right;
+        }
+        .register .nav-tabs .nav-link{
+            padding: 2%;
+            height: 34px;
+            font-weight: 600;
+            color: #fff;
+            border-top-right-radius: 1.5rem;
+            border-bottom-right-radius: 1.5rem;
+        }
+        .register .nav-tabs .nav-link:hover{
+            border: none;
+        }
+        .register .nav-tabs .nav-link.active{
+            width: 100px;
+            color: #0062cc;
+            border: 2px solid #0062cc;
+            border-top-left-radius: 1.5rem;
+            border-bottom-left-radius: 1.5rem;
+        }
+        .register-heading{
+            text-align: center;
+            margin-top: 8%;
+            margin-bottom: -15%;
+            color: #495057;
+        }
+
+        #navigation{
+            list-style-type: none;
+        }
+
+
+        /* ================================================ */
+        #nav-link{
+            text-decoration: none;
+            /* color: black; */
+        }
+
+        #nav-link:hover{
+            text-decoration: underline;
+            color: red;
+        }
+        #navigation{
+            list-style-type: none;
+            background: -webkit-linear-gradient(right, #3931af, #00c6ff);
+        }
+
+        .topnav a:hover {
+            border-bottom: 3px solid red;
+        }
+
+        #navi{
+            color: black;
+        }
+
+
+
+    </style>
+
+    <!------ Para el Navbar---------->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Para el Navbar---------->
+
+</head>
+
+
+<body style="  background: -webkit-linear-gradient(left, #3931af, #00c6ff);">
+
+
+<!-- Navigation Bar  -->
+
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light "
+     style=" background: -webkit-linear-gradient(right, #3931af, #00c6ff);">
+    <a class="navbar-brand" href="/Principal/Home">PUCMM, Oficina Planeamiento</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto topnav">
+
+            <li class="nav-item">
+            <li class="nav-link">
+                <a id="navi" href="#" class="dropdown-toggle" data-toggle="dropdown">Formularios</a>
+                <ul class="dropdown-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Principal/RegistrarPersona">Reg Formulario</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Principal/ListarFormularios">Ver Formularios</a>
+                    </li>
+                </ul>
+            </li>
+
+
+            <li class="nav-link">
+                <a id="navi" href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios</a>
+                <ul class="dropdown-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Principal/VerUsuarios">Ver Usuarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Principal/CrearUsuarios">Crear Usuario</a>
+                    </li>
+                </ul>
+            </li>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link btn btn-primary text-white" type="button" href="/Principal/Login">Iniciar Sesión</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link btn btn-danger text-white" type="button" href="/Principal/CrearUsuario">Registrar</a>
+            </li>
+        </ul>
+    </div>
+
+
+</nav>
+</div>
+
+<!-- Navigation Bar  -->
+
+<form id="RegistrarPersona" action="/Principal/RegistrarPersona" method="post">
+    <div class="container register">
+        <div class="row">
+            <div class="col-md-3 register-left">
+                <!-- <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/> -->
+                <img src="https://i1.wp.com/red-lei.org/wp-content/uploads/2020/01/logo_pucmm_lineas-Blanco1.png?w=1060&ssl=1"
+                     style="width: 180px;" alt=""/>
+
+                <h4>P U C M M</h4>
+                <p>Oficina de planeamiento urbano</p>
+
+            </div>
+            <div class="col-md-9 register-right">
+
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <h3 class="register-heading">Registro de Personas</h3>
+                        <div class="row register-form">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input id="nombre" name="nombre" type="text" class="form-control"
+                                           placeholder="Nombres  *" form="RegistrarPersona"/>
+                                </div>
+                                <div class="form-group">
+                                    <input id="apellidos" name="apellidos" type="text" class="form-control"
+                                           placeholder="Apellidos  *" form="RegistrarPersona"/>
+                                </div>
+
+                                <div class="form-group">
+
+                                </div>
+                                <!--
+                                <div class="form-group">
+                                    <input id="sector" name="sector" type="text" class="form-control" placeholder="Sector  *" form="RegistrarPersona" />
+                                </div>-->
+                                <div class="form-group">
+                                    <select id="sector" name="sector" class="form-control" form="RegistrarPersona">
+                                        <option class="hidden" selected disabled>Seleccione Sector</option>
+                                        <option>Duarte</option>
+                                        <option>Dajabón</option>
+                                        <option>Espaillat</option>
+                                        <option>La Vega</option>
+                                        <option>María Trinidad Sánchez</option>
+                                        <option>Monseñor Nouel</option>
+                                        <option>Montecristi</option>
+                                        <option>Puerto Plata</option>
+                                        <option>Salcedo</option>
+                                        <option>Samaná</option>
+                                        <option>Sánchez Ramírez</option>
+                                        <option>Santiago de los Caballeros</option>
+                                        <option>Santiago Rodríguez</option>
+                                        <option>Valverde</option>
+                                    </select>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <input name="usuario_form" id="usuario_form" type="text" class="form-control"
+                                           form="RegistrarPersona" th:value="${usuario}" readonly/>
+                                </div>
+
+                                <input name="usuario_WebStorage" id="usuario_WebStorage" type="hidden"
+                                       class="form-control" form="RegistrarPersona" th:value="${usuario}"/>
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <select id="nivelEscolar" name="nivelEscolar" class="form-control"
+                                            form="RegistrarPersona">
+                                        <option class="hidden" selected disabled>Seleccione Nivel Escolar</option>
+                                        <option>Básico</option>
+                                        <option>Medio</option>
+                                        <option>Grado Universitario</option>
+                                        <option>Postgrado</option>
+                                        <option>Doctorado</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <input name="latitud" id="latitud" type="text" class="form-control"
+                                           placeholder="Latitud " form="RegistrarPersona" readonly/>
+                                </div>
+
+                                <div class="form-group">
+                                    <input name="longitud" id="longitud" type="text" class="form-control"
+                                           placeholder="Longitud  " form="RegistrarPersona" readonly/>
+                                </div>
+
+
+
+</div>
+<div class="col-12" style="margin-top:1rem;border: solid 1px;">
+
+    <div class="nav-title">
+        <h4><strong>Vista previa</strong></h4>
+    </div>
+
+    <div class="div_todo"
+         style="isplay: flex;justify-content: center;align-items: center; flex-flow: column;">
+        <div class="div_preview">
+            <video id="webcam" autoplay playsinline width="640" height="280"></video>
+
+        </div>
+
+        <div class="botones " style="width:100%; display:flex; justify-content: center; align-items:center;">
+            <!--               <button class="btn btn&#45;&#45;radius-2 btn&#45;&#45;red" id="camSnap">Snap</button>-->
+            <!--               <button class="btn btn&#45;&#45;radius-2 btn&#45;&#45;red" id="camStart" (click)="webcam?.start()">ON</button>-->
+            <!--               <button class="btn btn&#45;&#45;radius-2 btn&#45;&#45;red" id="camStop">OFF</button>-->
+
+            <input  class="btn btn&#45;&#45;radius-2 btn&#45;&#45;red" type="button" style="margin-left: 2rem"onclick="camStart(webcam)" value="ON">
+            <input  class="btn btn&#45;&#45;radius-2 btn&#45;&#45;red" type="button" style="margin-left: 2rem"onclick="camSnap(webcam)" value="SNAP">
+            <input  class="btn btn&#45;&#45;radius-2 btn&#45;&#45;red" type="button" style="margin-left: 2rem"onclick="camStop(webcam)" value="OFF">
+         
+        </div>
+    </div>
+    <h4><strong>Foto Adjunta:</strong></h4>
+    <div class="foto-adjunta">
+
+        <br>
+        <canvas id="canvas" class="form-row"></canvas>
+    </div>
+    <audio id="snapSound" src="/snap.wav" preload = "auto"></audio>
+
+  <!--  <div class="btn-div">
+        <button class="btn btn--radius-2 btn--red" id="submit">Enviar</button>
+    </div>-->
+
+
+
+
+</div>
+                            <button id="btnRegistrar" class="btnRegister" onclick="regFormulario()">Registrar
+</form>
+</button>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+
+</body>
+
+
+<!-- Script para obtener ubicación.   -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- WEB CAM SCRIPT -->
+<script type="text/javascript" src="/webcam-easy.js"></script>
+
+<script>
+
+    var picture;
+
+    const webcamElement = document.getElementById('webcam');
+    const canvasElement = document.getElementById('canvas');
+    const snapSoundElement = document.getElementById('snapSound');
+    const webcam = new Webcam(webcamElement, 'user', canvasElement, snapSoundElement);
+
+    function camStart(webcam) {
+        webcam.start()
+            .then(result =>{
+                console.log("webcam started");
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
+    function camStop(webcam) {
+        webcam.stop();
+    }
+
+    function camSnap(webcam) {
+        picture = webcam.snap();
+    }
+
+    function getPicture() {
+        return picture;
+    }
+
+
+
+
+</script>
+
+<script>
+
+    var id, cantidad = 0;
+
+    var opcionesGPS = {
+        enableHighAccuracy: true,
+        timeout: 1000,
+        maximumAge: 0
+    }
+
+
+    $(document).ready(setearLocalizacion());
+
+    function setearLocalizacion() {
+
+
+        //Obteniendo la referencia directa.
+        navigator.geolocation.getCurrentPosition(
+            function(geodata){
+                var coordenadas = geodata.coords;
+                document.getElementById("latitud").value = coordenadas.latitude;
+
+                document.getElementById("longitud").value = coordenadas.longitude;
+            },
+
+            function(){
+                document.querySelector("#latitud").value = "Error al obtener la ubicación";
+                document.querySelector("#longitud").value = "Error al obtener la ubicación";
+            },
+            opcionesGPS);
+
+        //Obteniendo el cambio de referencia.
+        id = navigator.geolocation.watchPosition(
+
+            function(geodata){
+                var coordenadas = geodata.coords;
+                document.querySelector("#latitud").value = coordenadas.latitude;
+                document.querySelector("#longitud").value = coordenadas.longitude;
+                cantidad++;
+                if(cantidad>=5){
+                    navigator.geolocation.clearWatch(id);
+                    console.log("Finalizando la trama")
+                }
+            },
+
+            function(error){
+                //recibe un objeto con dos propiedades: code y message.
+                document.querySelector("#latitud").value = "Error al obtener la ubicación. Codigo: "+error.code+", mensaje: "+error.message;
+                document.querySelector("#longitud").value = "Error al obtener la ubicación. Codigo: "+error.code+", mensaje: "+error.message;
+            });
+    }
+</script>
+
+<script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
+
+
+<script>
+    //
+    // Define your database
+    //
+
+    // $(document).ready(()=>{
+
+    const db = new Dexie("Practica2_BrayanMnz");
+    db.version(1).stores({
+        formulario: '++&id_formulario, nombre, sector, nivel_escolar, latitud, longitud, usuario_formulario, mimeType, fotoBase64',
+        usuario: '++&id_Usuario, username, passwd_Usuario, role_Usuario',
+        //    ghost:  '++id, esel'
+
+
+    });
+    db.open().catch (function (err) {
+        console.error('Failed to open db: ' + (err.stack || err));
+    });
+
+    // db.ghost.put({
+    //        esel: "si"
+    //     })
+    // });
+
+    function regFormulario(){
+        // db.open().catch (function (err) {
+        // console.error('Failed to open db: ' + (err.stack || err));
+
+        db.formulario.put(
+            {
+                nombre:  document.querySelector("#nombre").value +" "+document.querySelector("#apellidos").value,
+                sector: document.querySelector("#sector").value,
+                nivel_escolar: document.querySelector("#nivelEscolar").value,
+                latitud: document.querySelector("#latitud").value,
+                longitud: document.querySelector("#longitud").value,
+                usuario_formulario: document.querySelector("#usuario_form").value,
+                mimeType: "image/jpeg",
+                fotoBase64: getPicture()
+            }).then (function(){
+
+
+            return db.formulario.get(db.formulario.count() - 1);
+        }).then(function (form) {
+            //
+            // Display the result
+            //
+            alert ("Se ha agregado " + form.nombre);
+        }).catch(function(error) {
+            //
+            // Finally don't forget to catch any error
+            // that could have happened anywhere in the
+            // code blocks above.
+            //
+            alert ("Ooops: " + error);
+        });
+    }
+
+
+
+</script>
+
+<script>
+    $(document).ready(Usuario_AlWebStorage());
+
+    function Usuario_AlWebStorage() {
+
+
+        var usuario = localStorage.getItem("usuario");
+        if(usuario == null) {
+            var tmp = document.querySelector("#usuario_WebStorage").value;
+
+            localStorage.setItem("usuario", tmp); //Siempre guarda
+            usuario = tmp;
+        }
+
+        document.querySelector("#usuario_form").value = localStorage.getItem("usuario");
+        //  //Almacenando información en el ambiente de sesión.
+        //  sessionStorage.setItem("fechaAcceso", new Date().toUTCString());
+
+        //Mostrando.
+        //  document.getElementById("primeraVez").innerText ="La primera vez accedido: "+usuario;
+        //  document.getElementById("ultimaVez").innerText ="La última  vez accedido: "+sessionStorage.getItem("fechaAcceso");
+    }
+
+
+</script>
+
+
+</html>
