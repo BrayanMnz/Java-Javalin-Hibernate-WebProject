@@ -265,49 +265,7 @@
                                 <div class="form-group">
                                     <input  name="longitud" id="longitud"  type="text" class="form-control" placeholder="Longitud  " form="RegistrarPersona" readonly/>
                                 </div>
-                                <div class="form-row" style="border: solid 1px; padding: 10px;">
-
-                                    <div class="nav-title">
-                                        <h4><strong>Vista previa</strong></h4>
-                                    </div>
-
-                                    <div class="div_todo">
-                                        <div class="div_preview">
-                                            <video id="webcam" autoplay playsinline width="640" height="480"></video>
-                                        </div>
-
-                                        <div class="botones " style="width:100%; display:flex; justify-content: center; align-items:center;">
-
-                                            <div class="botones ">
-                                                <button class="btn btn--radius-2 btn--red" id="camSnap">Snap</button>
-                                                <button class="btn btn--radius-2 btn--red" id="camStart">ON</button>
-                                                <button class="btn btn--radius-2 btn--red" id="camStop">OFF</button>
-                                                <input  class="btn btn&#45;&#45;radius-2 btn&#45;&#45;red" type="button" style="margin-left: 2rem"onclick="camStart(webcam)" value="ON">
-                                                <input  class="btn btn&#45;&#45;radius-2 btn&#45;&#45;red" type="button" style="margin-left: 2rem"onclick="camSnap(webcam)" value="SNAP">
-                                                <input  class="btn btn&#45;&#45;radius-2 btn&#45;&#45;red" type="button" style="margin-left: 2rem"onclick="camStop(webcam)" value="OFF">
-                                                <!--                                        <button onclick="webcam.start()">Mmmh</button>>-->
-                                            </div>
-                                    </div>
-                                    <h4><strong>Foto Adjunta:</strong></h4>
-                                    <div class="foto-adjunta" >
-
-                                        <br>
-                                        <canvas id="canvas" class="form-row"></canvas>
-                                    </div>
-                                    <audio id="snapSound" src="/snap.wav" preload = "auto"></audio>
-
-                                </div>
-
-
-                                <div class="btn-div">
-                                    <button class="btn btn--radius-2 btn--red" id="submit">Enviar</button>
-                                </div>
-                                <!-- --> </form>
-                    </div>
-                    </div>
-                    <br>
-
-                                <button id="btnRegistrar" class="btnRegister" onclick="regFormulario()" >Registrar</button> 
+                                <button id="btnRegistrar" class="btnRegister" onclick="regFormulario()" >Registrar</button>  
                             </form>
 
                             </div>
@@ -323,7 +281,13 @@
             </body>
 
 
-     <!-- Script para obtener ubicación.   -->   
+
+
+
+
+
+        <!-- Script para obtener ubicación.   -->
+     
 
             <script> 
 
@@ -391,7 +355,7 @@
 
     const db = new Dexie("Practica2_BrayanMnz");
     db.version(1).stores({
-        formulario: '++&id_formulario, nombre, sector, nivel_escolar, latitud, longitud, usuario_formulario, mimeType, fotoBase64',
+       formulario: '++&id_formulario, nombre, sector, nivel_escolar, latitud, longitud, usuario_formulario',
        usuario: '++&id_Usuario, username, passwd_Usuario, role_Usuario',
     //    ghost:  '++id, esel'
 
@@ -417,10 +381,7 @@
                           nivel_escolar: document.querySelector("#nivelEscolar").value,
                           latitud: document.querySelector("#latitud").value,
                           longitud: document.querySelector("#longitud").value,
-                          usuario_formulario: document.querySelector("#usuario_form").value,
-                          mimeType: "image/jpeg",
-                          fotoBase64: getPicture()
-                                                  }).then (function(){
+                          usuario_formulario: document.querySelector("#usuario_form").value}).then (function(){
 
 
     }).then(function (form) {
