@@ -267,7 +267,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <a class='nav-link btn btn-primary text-white'  onclick='verMapa()' type='button' href='#' data-toggle='modal' data-target='#modalFoto'>Realizar Fotografia</a>
+                                    <a class='nav-link btn btn-primary text-white'  onclick='EncenderCamara(webcam)' type='button' href='#' data-toggle='modal' data-target='#modalFoto'>Realizar Fotografia</a>
                                 </div>
 
                                 <button id="btnRegistrar" class="btnRegister" onclick="regFormulario()" >Registrar</button>  
@@ -287,7 +287,7 @@
 
 
 
-                      <!-- Modal -->
+                      <!-- Modal de abrir cámara -->
                       <div class="modal" id="modalFoto">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -307,33 +307,6 @@
                                     <canvas id="canvas" class="d-none"></canvas>
                                     <audio id="snapSound" src="/snap.wav" preload = "auto"></audio>
                                     
-                                    <script>
-                                        const webcamElement = document.getElementById('webcam');
-                                        const canvasElement = document.getElementById('canvas');
-                                        const snapSoundElement = document.getElementById('snapSound');
-                                        const webcam = new Webcam(webcamElement, 'user', canvasElement, snapSoundElement);
-                                
-                                
-                                        webcam.start()
-                                   .then(result =>{
-                                      console.log("webcam started");
-                                   })
-                                   .catch(err => {
-                                       console.log(err);
-                                   });
-                                
-                                    </script>
-                                <!-- <button type="button" onclick="Foto()">Realizar Foto</button> -->
-                                <a class='nav-link btn btn-primary text-white'  onclick='Foto()' type='button' href='#' data-toggle='modal' data-target='#modalFotoMostrar' data-dismiss="modal">Realizar Fotografia</a>
-                                
-                                <script>
-                                    function Foto() {
-                                        let picture = webcam.snap();
-                                        document.querySelector("#VisualizarFoto").src=""+picture;
-                                        console.log(picture);
-                                        
-                                            }
-                                </script>
                                 
                                 
 
@@ -341,6 +314,7 @@
                   
                                 <!-- Modal footer -->
                                 <div class="modal-footer">
+                                    <a class='nav-link btn btn-primary text-white'  onclick='Foto(webcam)' type='button' href='#' data-toggle='modal' data-target='#modalFotoMostrar' data-dismiss="modal">Realizar Fotografia</a>
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                                 </div>
                   
@@ -365,15 +339,21 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-             
-                <img id="VisualizarFoto" src="">
-            
 
+                <img id="VisualizarFoto" src="">
             </div>
 
             <!-- Modal footer -->
             <div class="modal-footer">
+                <!-- <a class='nav-link btn btn-success text-white' type='button' href='#' data-toggle='modal' data-target='#modalFotoMostrar' data-dismiss="modal">Guardar Foto</a> -->
+
+                <button type="button" class="btn btn-success" data-dismiss="modal">Guardar</button>
+
+                <a class='nav-link btn btn-primary text-white'  onclick='Foto(webcam)' type='button' href='#' data-toggle='modal' data-target='#modalFotoMostrar' data-dismiss="modal">Retomar </a>
+
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                
+
             </div>
 
         </div>
@@ -381,7 +361,45 @@
 </div>
 
 <!-- Modal mostrar imagen  -->
+<input  name="miFoto" id="miFoto" type="hidden" class="form-control"  />
 
+<script>
+
+    var picture;
+
+    const webcamElement = document.getElementById('webcam');
+    const canvasElement = document.getElementById('canvas');
+    const snapSoundElement = document.getElementById('snapSound');
+    const webcam = new Webcam(webcamElement, 'user', canvasElement, snapSoundElement);
+
+    function EncenderCamara(webcam) {
+        webcam.start()
+            .then(result =>{
+                console.log("webcam started");
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
+    function camStop(webcam) {
+        webcam.stop();
+    }
+
+    function Foto(webcam) {
+        picture = webcam.snap();
+        document.querySelector("#VisualizarFoto").src=""+picture;
+        webcam.stop();
+        document.querySelector("#miFoto").value = picture;
+
+    }
+
+
+    function getPicture() {
+        return picture;
+    }
+
+</script>
 
 
         <!-- Script para obtener ubicación.   -->
@@ -453,7 +471,7 @@
 
     const db = new Dexie("Practica2_BrayanMnz");
     db.version(1).stores({
-       formulario: '++&id_formulario, nombre, sector, nivel_escolar, latitud, longitud, usuario_formulario',
+        formulario: '++&id_formulario, nombre, sector, nivel_escolar, latitud, longitud, usuario_formulario, mimeType, fotoBase64',
        usuario: '++&id_Usuario, username, passwd_Usuario, role_Usuario',
     //    ghost:  '++id, esel'
 
@@ -479,8 +497,9 @@
                           nivel_escolar: document.querySelector("#nivelEscolar").value,
                           latitud: document.querySelector("#latitud").value,
                           longitud: document.querySelector("#longitud").value,
-                          usuario_formulario: document.querySelector("#usuario_form").value}).then (function(){
-
+                          usuario_formulario: document.querySelector("#usuario_form").value,
+                          mimeType: "image/png",
+                          fotoBase64:  getPicture() }).then (function(){
 
     }).then(function (form) {
         //
