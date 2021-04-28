@@ -373,40 +373,40 @@ var id_Form = parseInt(param);
 
 
 
-        // W E B  S O C K E T 
+  // W E B  S O C K E T 
 
 
-                var webSocket;
+  var webSocket;
                 var tiempoReconectar = 5000;
 
             function EnviarAlServer() {
 
-                console.log("Hola estoy en el socket");
-
-
-
-            console.info("Iniciando Jquery -  Ejemplo WebServices");
-            conectar();
-
+                try {
+                    conectar(); 
+                } catch (error) {
+                    console.log("Error conectando al Web Socket "+error);
+                    
+                }
+          
+                
                 if(!webSocket || webSocket.readyState == 3) {
-                    alert("Debe conectarse a internet, antes de sincronizar");
+                    alert("No tiene conexion con el servidor!");
                     conectar();
                 }else{
-
 
                     const estudiantes =  db.formulario.toArray()
                         .then(list => {
                              list.forEach(item => {
-
+                                
                                 webSocket.send(JSON.stringify(item));
                                   });
                                            })
                         .catch(error => {
                           alert("Se encontró un error: "+error);
                                         });
-
+                  
                     alert("Se han enviado los datos al servidor! ");
-                    dataBase.result.deleteObjectStore("formularios");
+                    // dataBase.result.deleteObjectStore("formularios");
             } 
         }   
 
@@ -420,7 +420,7 @@ var id_Form = parseInt(param);
         }
 
         function conectar() {
-            webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port + "/mensajeServidor");
+            webSocket = new WebSocket("wss://" + location.hostname + ":" + location.port + "/mensajeServidor");
 
             //indicando los eventos:
             webSocket.onmessage = function(data){recibirInformacionServidor(data);};
@@ -430,14 +430,13 @@ var id_Form = parseInt(param);
             };
         }
 
-
+        
         function verificarConexion(){
             if(!webSocket || webSocket.readyState == 3){
                 conectar();
             }
         }
         setInterval(verificarConexion, tiempoReconectar); //para reconectar.
-
 
 </script>
 

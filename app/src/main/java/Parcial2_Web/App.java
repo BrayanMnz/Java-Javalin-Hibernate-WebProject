@@ -38,6 +38,7 @@ public class App {
            //Creando la instancia del servidor.
            Javalin app = Javalin.create(conf ->{
             conf.addStaticFiles("src/main/resources/publico", Location.EXTERNAL); //desde la carpeta de resources
+            conf.wsFactoryConfig(ws -> { ws.getPolicy().setMaxTextMessageSize(5000000);
             });
 
 //            new SoapControlador(app).aplicarRutas();
