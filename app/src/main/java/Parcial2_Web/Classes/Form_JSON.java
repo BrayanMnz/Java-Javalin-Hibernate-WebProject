@@ -15,12 +15,13 @@ public class Form_JSON {
 
     public String latitud;
     public String longitud;
-
+    private String mimeType;
+    private String fotoBase64;
 
     public Form_JSON() {
     }
 
-    public Form_JSON(int id_formulario, String nombre, String sector, String nivel_escolar, String usuario_formulario, String latitud, String longitud) {
+    public Form_JSON(int id_formulario, String nombre, String sector, String nivel_escolar, String usuario_formulario, String latitud, String longitud,  String mimeType, String foto) {
         this.id_formulario = id_formulario;
         this.nombre = nombre;
         this.sector = sector;
@@ -28,6 +29,8 @@ public class Form_JSON {
         this.usuario_formulario = usuario_formulario;
         this.latitud = latitud;
         this.longitud = longitud;
+        this.mimeType = mimeType;
+        this.fotoBase64 = foto;
     }
 
 
@@ -88,5 +91,13 @@ public class Form_JSON {
     public void setLongitud(String longitud) {
         this.longitud = longitud;
     }
+
+    public String getMimeType() { return mimeType; }
+
+    public void setMimeType(String mimeType) { this.mimeType = mimeType; }
+
+    public String getFotoBase64() { return fotoBase64; }
+
+    public void setFotoBase64(String fotoBase64) { this.fotoBase64 = fotoBase64; }
 
 }

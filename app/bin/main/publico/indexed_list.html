@@ -171,6 +171,39 @@ document.onload(imprimirTabla());
 
 
 
+
+
+
+
+
+                      <!-- Modal -->
+                      <div class="modal" id="modalFoto">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                  
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Ubicación del Registro Seleccionado</h4>
+                                    <button type="button" class="close" data-dismiss="modal">×</button>
+                                </div>
+                  
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                  <iframe src="" frameborder="0"
+                                  style="border:0; width: 100%; height: 290px;" allowfullscreen id="miFoto"></iframe>
+                                </div>
+                  
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                </div>
+                  
+                            </div>
+                        </div>
+                    </div>
+                  
+                  
+
 </body>
 
 
@@ -181,7 +214,7 @@ document.onload(imprimirTabla());
 
         const db = new Dexie("Practica2_BrayanMnz");
           db.version(1).stores({
-                        formulario: '++&id_formulario, nombre, sector, nivel_escolar, latitud, longitud, usuario_formulario',
+                        formulario: '++&id_formulario, nombre, sector, nivel_escolar, latitud, longitud, usuario_formulario, mimeType, fotoBase64',
                         usuario: '++&id_Usuario, username, passwd_Usuario, role_Usuario',
 
 
@@ -217,6 +250,7 @@ document.onload(imprimirTabla());
             filaTabla.insertCell().textContent = "Sector";
             filaTabla.insertCell().textContent = "Nivel Escolar";
             filaTabla.insertCell().textContent = "Ubicación";
+            filaTabla.insertCell().textContent = "Imagen";
             filaTabla.insertCell().textContent = "Registrado Por";
             filaTabla.insertCell().textContent = "Acción";
 
@@ -232,6 +266,8 @@ document.onload(imprimirTabla());
 
 
                 filaTabla.insertCell().innerHTML =  "<a class='nav-link btn btn-primary text-white'  onclick='verMapa(\""+x[key].id_formulario+"\")' type='button' href='#' data-toggle='modal' data-target='#myModal'>Ver en Mapa</a>"
+
+                filaTabla.insertCell().innerHTML =  "<a class='nav-link btn btn-primary text-white'  onclick='verImagen(\""+x[key].id_formulario+"\")' type='button' href='#' data-toggle='modal' data-target='#modalFoto'>Ver Imagen</a>"
 
                 filaTabla.insertCell().textContent = ""+x[key].usuario_formulario;
                 filaTabla.insertCell().innerHTML =  "<button class='btn btn-info btn-sm' onclick='editar_form(\""+x[key].id_formulario+"\");''> <span class='glyphicon glyphicon-edit'></span></button> <span></span> <span><button class='btn btn-danger btn-sm' onclick='eliminar_form(\""+x[key].id_formulario+"\");''> <span class='glyphicon glyphicon-remove'></span></button></span>";
@@ -321,44 +357,56 @@ document.onload(imprimirTabla());
 
 
 
+    function verImagen(param) {
+
+var id_Form = parseInt(param);
+ let obj = x.find(o => o.id_formulario === id_Form);
+ let indx = x.indexOf(obj); 
+
+ document.getElementById("miFoto").src = x[indx].fotoBase64;
+
+}
 
 
 
 
-        // W E B  S O C K E T 
 
 
-                var webSocket;
+
+  // W E B  S O C K E T 
+
+
+  var webSocket;
                 var tiempoReconectar = 5000;
 
             function EnviarAlServer() {
 
-                console.log("Hola estoy en el socket");
-
-
-
-            console.info("Iniciando Jquery -  Ejemplo WebServices");
-            conectar();
-
+                try {
+                    conectar(); 
+                } catch (error) {
+                    console.log("Error conectando al Web Socket "+error);
+                    
+                }
+          
+                
                 if(!webSocket || webSocket.readyState == 3) {
-                    alert("Debe conectarse a internet, antes de sincronizar");
+                    alert("No tiene conexion con el servidor!");
                     conectar();
                 }else{
-
 
                     const estudiantes =  db.formulario.toArray()
                         .then(list => {
                              list.forEach(item => {
-
+                                
                                 webSocket.send(JSON.stringify(item));
                                   });
                                            })
                         .catch(error => {
                           alert("Se encontró un error: "+error);
                                         });
-
+                  
                     alert("Se han enviado los datos al servidor! ");
-                    dataBase.result.deleteObjectStore("formularios");
+                    // dataBase.result.deleteObjectStore("formularios");
             } 
         }   
 
@@ -372,7 +420,7 @@ document.onload(imprimirTabla());
         }
 
         function conectar() {
-            webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port + "/mensajeServidor");
+            webSocket = new WebSocket("wss://" + location.hostname + ":" + location.port + "/mensajeServidor");
 
             //indicando los eventos:
             webSocket.onmessage = function(data){recibirInformacionServidor(data);};
@@ -382,14 +430,13 @@ document.onload(imprimirTabla());
             };
         }
 
-
+        
         function verificarConexion(){
             if(!webSocket || webSocket.readyState == 3){
                 conectar();
             }
         }
         setInterval(verificarConexion, tiempoReconectar); //para reconectar.
-
 
 </script>
 

@@ -23,7 +23,12 @@ public class Formulario {
     @Column
     public String longitud;
 
+    @Column
+    private String mimeType;
 
+    @Lob
+    @Column
+    private String fotoBase64;
 
     
     public Formulario() {
@@ -38,6 +43,18 @@ public class Formulario {
         this.usuario_formulario = usuario;
         this.latitud = latitud;
         this.longitud = longitud;
+    }
+
+    public Formulario( String nombre, String sector, String nivel_escolar, String latitud, String longitud, String usuario,  String tipo, String foto) {
+        //this.id_formulario = id;
+        this.nombre = nombre;
+        this.sector = sector;
+        this.nivel_escolar = nivel_escolar;
+        this.usuario_formulario = usuario;
+        this.latitud = latitud;
+        this.longitud = longitud;
+        this.mimeType = tipo;
+        this.fotoBase64 = foto;
     }
 
 
@@ -97,6 +114,15 @@ public class Formulario {
     public void setLongitud(String longitud) {
         this.longitud = longitud;
     }
+
+    public String getMimeType() { return mimeType; }
+
+    public void setMimeType(String mimeType) { this.mimeType = mimeType; }
+
+    public String getFotoBase64() { return fotoBase64; }
+
+    public void setFotoBase64(String fotoBase64) { this.fotoBase64 = fotoBase64; }
+
 
 
 }
