@@ -44,7 +44,7 @@ public class mainController extends BaseControlador {
 
             for (Form_JSON formu : formsRecibidos) {
                 if (formu.getNombre() != null && formu.getSector() != null && formu.getNivel_escolar() != null) {
-                    Formulario formuTmp = new Formulario(formu.getNombre(), formu.getSector(), formu.getNivel_escolar(), formu.getLatitud(), formu.getLongitud(), formu.getUsuario_formulario());
+                    Formulario formuTmp = new Formulario(formu.getNombre(), formu.getSector(), formu.getNivel_escolar(), formu.getLatitud(), formu.getLongitud(), formu.getUsuario_formulario(),formu.getMimeType(), formu.getFotoBase64());
                     if (FormularioServicios.getInstance().findByNombre(formuTmp.getNombre()).isEmpty()) {
                         FormularioServicios.getInstance().crear(formuTmp);
                     }
@@ -255,7 +255,7 @@ public class mainController extends BaseControlador {
                     try {
                         for (Form_JSON formu : formsRecibidos) {
                             if (formu.getNombre() != null && formu.getSector() != null && formu.getNivel_escolar() != null) {
-                                Formulario formuTmp = new Formulario(formu.getNombre(), formu.getSector(), formu.getNivel_escolar(), formu.getLatitud(), formu.getLongitud(), formu.getUsuario_formulario());
+                                Formulario formuTmp = new Formulario(formu.getNombre(), formu.getSector(), formu.getNivel_escolar(), formu.getLatitud(), formu.getLongitud(), formu.getUsuario_formulario(),formu.getMimeType(), formu.getFotoBase64());
                                 if (FormularioServicios.getInstance().findByNombre(formuTmp.getNombre()).isEmpty()) {
                                     FormularioServicios.getInstance().crear(formuTmp);
                                 }
