@@ -1,7 +1,8 @@
 package Parcial2_Web.Classes;
 
+import java.io.Serializable;
 
-public class Form_JSON { 
+public class Form_JSON  implements Serializable  { 
 
 
     public int id_formulario;
@@ -15,8 +16,8 @@ public class Form_JSON {
 
     public String latitud;
     public String longitud;
-    private String mimeType;
-    private String fotoBase64;
+    public String mimeType;
+    public String fotoBase64;
 
     public Form_JSON() {
     }
