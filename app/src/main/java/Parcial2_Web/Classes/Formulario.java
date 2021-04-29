@@ -1,11 +1,13 @@
 package Parcial2_Web.Classes;
 
 import javax.persistence.*;
+
+import java.io.Serializable;
 import java.util.*;
 import Parcial2_Web.Classes.Usuario;
 
 @Entity
-public class Formulario {
+public class Formulario  implements Serializable  {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Se genera el ID automatico
@@ -24,11 +26,10 @@ public class Formulario {
     public String longitud;
 
     @Column
-    private String mimeType;
+    public String mimeType;
 
     @Lob
-    @Column
-    private String fotoBase64;
+    public String fotoBase64;
 
     
     public Formulario() {

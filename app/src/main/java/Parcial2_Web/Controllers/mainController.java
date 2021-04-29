@@ -221,7 +221,7 @@ public class mainController extends BaseControlador {
 
                         for (Form_JSON formu : formsRecibidos) {
                             if (formu.getNombre() != null && formu.getSector() != null && formu.getNivel_escolar() != null) {
-                                Formulario formuTmp = new Formulario(formu.getNombre(), formu.getSector(), formu.getNivel_escolar(), formu.getLatitud(), formu.getLongitud(), formu.getUsuario_formulario());
+                                Formulario formuTmp = new Formulario(formu.getNombre(), formu.getSector(), formu.getNivel_escolar(), formu.getLatitud(), formu.getLongitud(), formu.getUsuario_formulario(), formu.getMimeType(), formu.getFotoBase64());
                                 if (FormularioServicios.getInstance().findByNombre(formuTmp.getNombre()).isEmpty()) {
                                     FormularioServicios.getInstance().crear(formuTmp);
                                 }
@@ -250,11 +250,11 @@ public class mainController extends BaseControlador {
                 app.wsAfter("/mensajeServidor",ws -> {
                     // runs after all WebSocket requests
 
-                    System.out.println("Insertando data en Base de Datos...");
+                    //System.out.println("Insertando data en Base de Datos...");
                     
                     try {
                         for (Form_JSON formu : formsRecibidos) {
-                            if (formu.getNombre() != null && formu.getSector() != null && formu.getNivel_escolar() != null) {
+                            if (formu.getNombre() != null && formu.getSector() != null && formu.getNivel_escolar() != null && formu.getMimeType() != null && formu.getFotoBase64() != null) {
                                 Formulario formuTmp = new Formulario(formu.getNombre(), formu.getSector(), formu.getNivel_escolar(), formu.getLatitud(), formu.getLongitud(), formu.getUsuario_formulario(),formu.getMimeType(), formu.getFotoBase64());
                                 if (FormularioServicios.getInstance().findByNombre(formuTmp.getNombre()).isEmpty()) {
                                     FormularioServicios.getInstance().crear(formuTmp);
@@ -262,10 +262,10 @@ public class mainController extends BaseControlador {
                             }
                         }
                     } catch (Exception e) {
-                        System.out.println("Ocurrió un error insertando la información en la Base de Datos.\n");
+                        System.out.println("Ocurrió un error insertando la información en la Base de Datos.\n"+e);
                     }
 
-                    System.out.println("\n\n Data insertada en la base de datos correctamente! \n");
+
                     
 
 
