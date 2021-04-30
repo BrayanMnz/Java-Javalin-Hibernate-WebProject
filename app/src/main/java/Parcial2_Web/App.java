@@ -38,11 +38,12 @@ public class App {
            //Creando la instancia del servidor.
            Javalin app = Javalin.create(conf ->{
             conf.wsFactoryConfig(ws -> { ws.getPolicy().setMaxTextMessageSize(5000000); });
+            conf.registerPlugin(new RouteOverviewPlugin("rutas")); //Aplicamos el plugin de rutas
             conf.addStaticFiles("src/main/resources/publico", Location.EXTERNAL); //desde la carpeta de resources
             
             });
 
-//            new SoapControlador(app).aplicarRutas();
+            new SoapControlador(app).aplicarRutas();
 
             app.start(7000);
 

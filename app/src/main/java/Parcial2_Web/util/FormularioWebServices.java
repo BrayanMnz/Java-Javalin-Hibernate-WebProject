@@ -2,6 +2,7 @@ package Parcial2_Web.util;
 
 
 import Parcial2_Web.Classes.*;
+import Parcial2_Web.util.SoapServices;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import java.util.*;
@@ -12,7 +13,7 @@ import java.util.*;
 @WebService
 public class FormularioWebServices {
 
-    private FormularioServicios serviciosFormularios = FormularioServicios.getInstance();
+    private SoapServices serviciosFormularios = SoapServices.getInstance();
 
     @WebMethod
     public String holaMundo(String hola){

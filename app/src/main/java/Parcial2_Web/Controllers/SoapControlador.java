@@ -1,9 +1,7 @@
 package Parcial2_Web.Controllers;
 
-import com.sun.net.httpserver.HttpContext;
-
-import Parcial2_Web.Classes.*;
 import Parcial2_Web.util.*;
+import com.sun.net.httpserver.HttpContext;
 import io.javalin.Javalin;
 import org.eclipse.jetty.http.spi.HttpSpiContextHandler;
 import org.eclipse.jetty.http.spi.JettyHttpContext;
@@ -13,7 +11,6 @@ import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 
 import javax.xml.ws.Endpoint;
 import java.lang.reflect.Method;
-
 
 /**
  * Clase para implementar JAX-WS
