@@ -420,7 +420,7 @@ var id_Form = parseInt(param);
         }
 
         function conectar() {
-            webSocket = new WebSocket("wss://" + location.hostname + ":" + location.port + "/mensajeServidor");
+            webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port + "/mensajeServidor");
 
             //indicando los eventos:
             webSocket.onmessage = function(data){recibirInformacionServidor(data);};

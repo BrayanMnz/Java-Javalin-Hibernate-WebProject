@@ -3,6 +3,8 @@ package Parcial2_Web.util;
 
 import Parcial2_Web.Classes.*;
 import Parcial2_Web.util.SoapServices;
+import javax.persistence.Query;
+import com.google.gson.Gson;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import java.util.*;
@@ -13,7 +15,8 @@ import java.util.*;
 @WebService
 public class FormularioWebServices {
 
-    private SoapServices serviciosFormularios = SoapServices.getInstance();
+    // private SoapServices serviciosFormularios = SoapServices.getInstance();
+    private FormularioServicios serviciosFormularios = FormularioServicios.getInstance();
 
     @WebMethod
     public String holaMundo(String hola){
@@ -28,13 +31,39 @@ public class FormularioWebServices {
     }
 
     @WebMethod
-    public List<Formulario> getListaFormularios(){
-        return  serviciosFormularios.findAll();
+    public String ListarFormularios(){
+
+        // Usuario usuario = UsuarioServices.getInstancia().find(user);
+        
+        List<Formulario> lista = serviciosFormularios.findAll();
+
+        Gson listaFormularios = new Gson();
+
+        return listaFormularios.toJson(lista);
+
     }
 
-    // @WebMethod
-    // public Formulario crearFormulario(Formulario Formulario){
-    //     return serviciosFormularios.crear(Formulario);
-    // }
+
+    @WebMethod
+    public String FormulariosPorUsuario(String user){
+
+        // Usuario usuario = UsuarioServices.getInstancia().find(user);
+        
+        List<Formulario> lista = serviciosFormularios.findByUsuario(user);
+
+        Gson listaFormularios = new Gson();
+
+        return listaFormularios.toJson(lista);
+
+    }
+
+    @WebMethod
+    public void crearFormulario(String tempFormu){
+
+        Gson gson = new Gson();
+        Formulario formu = new Formulario();
+        formu = gson.fromJson(tempFormu, Formulario.class);
+        serviciosFormularios.crear(formu);
+    }
 
 }
