@@ -238,7 +238,7 @@ fieldset{
 
       $("#autenticar").click(function () {
 
-           var URL_API = "http://localhost:7000/Principal/Login";
+           var URL_API = "https://parcial2.brayanmnz.live/Principal/Login";
 
              console.log("Autenticando Cliente");
              var usuario = $("#usuario").val();
@@ -249,7 +249,7 @@ fieldset{
                   localStorage.setItem("token", data.token);
                   
                  alert("Usuario Autentificado");
-                 window.location.href = "http://localhost:7000/Principal/RegistrarPersona";
+                 window.location.href = "https://parcial2.brayanmnz.live/Principal/RegistrarPersona";
              }).fail(function (e) {
                 alert("Error de autentificacion: "+e);
              });
