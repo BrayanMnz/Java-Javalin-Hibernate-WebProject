@@ -59,9 +59,7 @@ public class mainController extends BaseControlador {
 
             
             });
-
             
-
             before("/Principal/RegistrarPersona",ctx ->{
                 if(ctx.sessionAttribute("usuario") ==null) {
                     ctx.redirect("/Principal/Login");
@@ -114,38 +112,6 @@ public class mainController extends BaseControlador {
                   
                 });
 
-
-                get("/Login", ctx-> {
-                    Map<String, Object> modelo = new HashMap<>();
-                    ctx.render("/publico/Login.html",modelo);
-                });
-
-
-                post("/Login", ctx-> {
-
-                    String user = ctx.formParam("username");
-                    String passwrd = ctx.formParam("password");
-
-                   
-
-                    if(serviciosUsuarios.verify_user(user,passwrd)){
-                        ctx.sessionAttribute("usuario",UsuarioServicios.getInstance().getUsuario(user));
-                        ctx.redirect("/Principal/RegistrarPersona");
-                       
-                    } else {
-                        
-                        System.out.println("USUARIO NO EXISTEE!");
-                        ctx.render("/publico/usuario_no.html");
-                        
-
-                    }
-
-
-                });
-
-
-
-               
                 get("/ListarFormularios", ctx-> {
 
                     Map<String, Object> modelo = new HashMap<>();

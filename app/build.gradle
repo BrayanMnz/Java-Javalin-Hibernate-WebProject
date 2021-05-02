@@ -42,6 +42,11 @@ dependencies {
     implementation"com.sun.xml.ws:rt:2.3.1"
      implementation 'com.google.code.gson:gson:2.8.6'
 
+     //Libreria para JWT
+    implementation 'io.jsonwebtoken:jjwt-api:0.10.5'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.10.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.10.5'
+
 }
 
 shadowJar{

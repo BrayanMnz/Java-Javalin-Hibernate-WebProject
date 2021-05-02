@@ -202,17 +202,19 @@ fieldset{
     <div class="middle">
           <div id="login">
     
-            <form id="logiin"  action="/Principal/Login" method="post">
+            <form id="logiin"  action="" >
     
               <fieldset class="clearfix">
     
-                <p ><span class="fa fa-user"></span><input name="username" type="text"  Placeholder="Nombre de Usuario" required></p> <!-- JS because of IE support; better: placeholder="Username" -->
-                <p><span class="fa fa-lock"></span><input name="password" type="password"  Placeholder="Contraseña" required></p> <!-- JS because of IE support; better: placeholder="Password" -->
+                <p ><span class="fa fa-user"></span><input id="usuario" name="username" type="text"  Placeholder="Nombre de Usuario" required></p> <!-- JS because of IE support; better: placeholder="Username" -->
+                <p><span class="fa fa-lock"></span><input id="password" name="password" type="password"  Placeholder="Contraseña" required></p> <!-- JS because of IE support; better: placeholder="Password" -->
                 
                  <div>
                                     <span style="width:48%; text-align:left;  display: inline-block;"><a class="small-text" href="#">Forgot
                                     password?</a></span>
-                                    <span style="width:50%; text-align:right;  display: inline-block;"><input type="submit" value="Iniciar Sesión" form="logiin"></span>
+                                    <!-- <span style="width:50%; text-align:right;  display: inline-block;"><input id="autenticar" type="submit" value="Iniciar Sesión" form="logiin" ></span> -->
+                                    <button  id="autenticar" value="Autenticar">Autenticar</button>
+                                    <!-- <span style="width:50%; text-align:right;  display: inline-block;"><input id="autenticar"  value="Iniciar Sesión" form="logiin" ></span> -->
                                 </div>
     
               </fieldset>
@@ -230,6 +232,35 @@ fieldset{
           </div>
         </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+
+      $("#autenticar").click(function () {
+
+           var URL_API = "http://localhost:7000/Principal/Login";
+
+             console.log("Autenticando Cliente");
+             var usuario = $("#usuario").val();
+             var password = $("#password").val();
+             console.log("La usuario y contraseña %s %s", usuario, password);
+             $.post(URL_API, {usuario: usuario, password: password}, function (data) {
+                  console.log("La información recibida: %o", data);
+                  localStorage.setItem("token", data.token);
+                  
+                 alert("Usuario Autentificado");
+                 window.location.href = "http://localhost:7000/Principal/RegistrarPersona";
+             }).fail(function (e) {
+                alert("Error de autentificacion: "+e);
+             });
+         });
+
+    </script>
+
+
+
+
+
 
 
     <script>
