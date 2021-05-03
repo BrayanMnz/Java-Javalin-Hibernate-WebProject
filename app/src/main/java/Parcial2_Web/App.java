@@ -40,6 +40,7 @@ public class App {
             conf.wsFactoryConfig(ws -> { ws.getPolicy().setMaxTextMessageSize(5000000); });
             conf.registerPlugin(new RouteOverviewPlugin("rutas")); //Aplicamos el plugin de rutas
            // conf.addStaticFiles("src/main/resources/publico", Location.EXTERNAL); //desde la carpeta de resources
+               conf.enableCorsForAllOrigins();
             
             });
 
@@ -60,6 +61,14 @@ public class App {
             // new UsersController(app).aplicarRutas();
             new mainController(app).aplicarRutas();
             new RestApi(app).aplicarRutas();
+
+        app.after("/*", ctx -> {
+            ctx.header("Access-Control-Allow-Origin", "*");
+            ctx.header("Access-Control-Allow-Methods", "*");
+            ctx.header("Access-Control-Allow-Headers", "*");
+//                ctx.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
+//                ctx.header("Access-Control-Allow-Headers", "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range,Authorization,Cookie");
+        });
            
     }
 
