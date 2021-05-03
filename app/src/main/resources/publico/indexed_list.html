@@ -395,7 +395,7 @@ var id_Form = parseInt(param);
                 }else{ 
 
                     waitForSocketConnection(webSocket, () => {
-                    console.log('Sending ' + msg)
+                    // console.log('Sending ' + msg)
                     const estudiantes =  db.formulario.toArray()
                         .then(list => {
                              list.forEach(item => {
@@ -410,7 +410,7 @@ var id_Form = parseInt(param);
                     alert("Se han enviado los datos al servidor! ");
                     // dataBase.result.deleteObjectStore("formularios");
                     //websocket.send(msg)
-                    console.log('Sent ' + msg)
+                    // console.log('Sent ' + msg)
                 })
                     
             } 
