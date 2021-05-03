@@ -392,8 +392,10 @@ var id_Form = parseInt(param);
                 if(!webSocket || webSocket.readyState == 3) {
                     alert("No tiene conexion con el servidor!");
                     conectar();
-                }else{
+                }else{ 
 
+                    waitForSocketConnection(webSocket, () => {
+                    console.log('Sending ' + msg)
                     const estudiantes =  db.formulario.toArray()
                         .then(list => {
                              list.forEach(item => {
@@ -407,9 +409,29 @@ var id_Form = parseInt(param);
                   
                     alert("Se han enviado los datos al servidor! ");
                     // dataBase.result.deleteObjectStore("formularios");
+                    //websocket.send(msg)
+                    console.log('Sent ' + msg)
+                })
+                    
             } 
         }   
 
+                    
+
+        function waitForSocketConnection (socket, callback) {
+                    setTimeout(
+                     function () {
+                     if (socket.readyState === 1) {
+                      console.log('Connection is made')
+                         if (callback != null) {
+                             callback()
+                                   }
+                                          } else {
+                                console.log('wait for connection...')
+                              waitForSocketConnection(socket, callback)
+                                                }
+                                    }, 15) // wait 5 milisecond for the connection...
+                                }
         /**
          *
          * @param mensaje
